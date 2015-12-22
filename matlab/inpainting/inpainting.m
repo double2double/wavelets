@@ -63,7 +63,7 @@ image(A_denoise)
 close all;
 B_n=A_dist;
 
-for n=1:1000
+for n=1:200
     disp(n);
     [C,S] = PsiS(B_n);
     C = SoftThresh(C,10);
@@ -74,8 +74,8 @@ for n=1:1000
     pause(0.00001)
 end
 %%
-
-
+imwrite(A_dist,cmap,'lena_broke.gif')
+imwrite(B_np1,cmap,'lena_fixed.gif')
 
 
 
