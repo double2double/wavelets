@@ -5,7 +5,7 @@ close all
 %       ./src/lena.gif
 %       ./src/baboon.gif
 
-[A_orig,cmap] = imread('./src/lena.gif');
+[A_orig,cmap] = imread('../src/lena.gif');
 A = double(A_orig);
 
 % Wavelet settings:
