@@ -2,6 +2,8 @@
 
 clear all
 close all
+addpath('../src/AddTextToImage');
+addpath('../src/ipsum');
 % Image names : 
 %       ./src/lena.gif
 %       ./src/baboon.gif
@@ -20,6 +22,23 @@ for i=1:7
     end
 end
 A_dist = A.*(1-mask);
+
+text = ones(size(A));
+ipsum = matlab_ipsum;
+mask = ones(size(A));
+for i=1:17
+text = AddTextToImage(text,ipsum(1+40*(i-1):40*i),[30*(i-1),10]);
+text(text~=1)=0;
+mask = mask.*text;
+end
+mask = zeros(size(A));
+text(text~=1)=0;
+mask = 1-text;
+
+A_dist = A.*(1-mask);
+
+image(A_dist)
+
 %% Plotting image + distorsion
 close all
 colormap(cmap)
@@ -41,7 +60,7 @@ Psi = @(C,S)waverec2(C,S,wname);
 %% Implementatie van inpainting 
 
 close all
-threshold = 'hard'; % 'soft' or 'hard' or 'smooth'
+threshold = 'soft'; % 'soft' or 'hard' or 'smooth'
 
 delta = 10;         % threshold parameter
 maxit = 200;        % Max itterations of algorithm
