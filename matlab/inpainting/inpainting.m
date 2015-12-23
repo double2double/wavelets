@@ -8,7 +8,7 @@ addpath('../src/ipsum');
 %       ./src/lena.gif
 %       ./src/baboon.gif
 %% Loading the image.
-[A_orig,cmap] = imread('../src/lena.gif');
+[A_orig,cmap] = imread('../src/baboon.gif');
 A = double(A_orig);
 colormap(cmap)
 image(A_orig);
