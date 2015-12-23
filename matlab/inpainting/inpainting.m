@@ -12,11 +12,12 @@ addpath('../src/ipsum');
 A = double(A_orig);
 colormap(cmap)
 image(A_orig);
-mask = zeros(size(A));
 
 %% Create some distorsion.
 
-distorsion='random';
+distorsion='text';
+mask = zeros(size(A));
+
 switch distorsion
     case 'random'
         p = 0.9;
@@ -65,6 +66,7 @@ Nb_levels = 20;     % Nb of resolution levels.
 SoftThresh  = @(x,T) x.*max( 0, 1-T./max(abs(x),1e-10) );
 HardThresh  = @(x,T) x .* (abs(x) >= T);
 SmootThresh = @(x,T) -x.*exp(-(x/T).^4)+x;
+
 %% Setting up the transformation
 PsiS = @(f)wavedec2(f,Nb_levels,wname);
 Psi = @(C,S)waverec2(C,S,wname);
@@ -74,7 +76,7 @@ close all
 threshold = 'soft'; % 'soft' or 'hard' or 'smooth'
 
 delta = 10;         % threshold parameter
-maxit = 2000;        % Max itterations of algorithm
+maxit = 200;        % Max itterations of algorithm
 
 close all;
 B_n=A_dist;

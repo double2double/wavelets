@@ -68,4 +68,69 @@
     \caption{Pictures of lena}\label{fig:baboon}
 \end{figure}
 
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/lena_broke2}
+        \caption{tekstbeschadigde figuur. \\ \ \\ \ \\ \ \\ \ \\}
+        \label{fig:fig1}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/paint_letters_db5_threskinds_it50}
+        \caption{Voor verschillende waarden van de threshold parameter $\delta$ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.}
+        \label{fig:mouse}
+    \end{subfigure}
+      \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/soft_succeed}
+        \caption{figuur \ref{fig:fig1} ingepaint met 'db5' wavelets. Soft thresholding is gebruikt met parameter $\delta = 10$. Hier is het goed gelukt, de blauwe curve bereikt zijn mimimum rond $\delta = 10$. \\}
+        \label{fig:tiger}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/hard_fail}
+        \caption{figuur \ref{fig:fig1} ingepaint met 'db5' wavelets. Hard thresholding is gebruikt met parameter $\delta = 10$. Hier is het mislukt. De reden hiervoor is dat de  rode curve voor $\delta = 10$ totaal niet het mimimum bereikt.}
+        \label{fig:mouse}
+    \end{subfigure}
+    \caption{Effect van threshold parameter en threshold techniek bij inpainting}\label{fig:baboon}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/paint_letters_db5_threskinds_it50}
+        \caption{Voor verschillende waarden van de threshold parameter $\delta$ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent. verschillende threshold technieken zijn gebruikt.(dezelfde figuur als vorige pagina)}
+        \label{fig:tiger}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/paint_letter_wavekinds_soft_it50}
+        \caption{Voor verschillende waarden van de threshold parameter $\delta$ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.verschillende soorten wavelets zijn gebruikt.}
+        \label{fig:mouse}
+    \end{subfigure}
+    \caption{plots error vs $\delta$}\label{fig:baboon}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/denoised_err_threskinds}
+        \caption{Voor verschillende waarden van de threshold parameter $\delta$ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. verschillende threshold technieken zijn gebruikt. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$. Conclusie: opletten met de waarde van de threshold parameter.}
+        \label{fig:tiger}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/denoised_err_wavekinds}
+        \caption{Voor verschillende waarden van de threshold parameter $\delta$ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$.verschillende soorten wavelets zijn gebruikt. Conclusie: opletten met de waarde van de threshold parameter..}
+        \label{fig:mouse}
+    \end{subfigure}
+    \caption{plots error vs $\delta$}\label{fig:baboon}
+\end{figure}
+
 \end{document}

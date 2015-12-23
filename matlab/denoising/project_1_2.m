@@ -34,11 +34,12 @@ snr = 10*log10(norm(A(:))^2/norm(An(:)-A(:))^2);
 subplot(2,2,1)
 colormap(cmap)
 image(A_orig);
+title('original picture')
 subplot(2,2,2)
 image(An.*sqrt(A_var)+A_mean);
 %subplot(3,2,3:6)
 %image(An-A);
-title(['snr = ',num2str(snr)]);
+title(['picture + noise, snr = ',num2str(snr)]);
 % Denoising
 [C,L] = wavedec2(An,n,wname);
 % Hard denoisisg
@@ -52,11 +53,11 @@ subplot(2,2,3)
 colormap(cmap)
 snr_hard = 10*log10(norm(A(:))^2/norm(An(:)-A_den_hard(:))^2);
 image(A_den_hard.*sqrt(A_var)+A_mean);
-title(['snr = ',num2str(snr_hard)]);
+title(['hard thresholding, snr = ',num2str(snr_hard)]);
 subplot(2,2,4)
 snr_soft = 10*log10(norm(A(:))^2/norm(An(:)-A_den_soft(:))^2);
 image(A_den_soft.*sqrt(A_var)+A_mean);
-title(['snr = ',num2str(snr_soft)]);
+title(['soft thresholding, snr = ',num2str(snr_soft)]);
 %%
 % Loading and destroing a nice picture.
 
