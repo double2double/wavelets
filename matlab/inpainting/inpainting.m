@@ -26,10 +26,13 @@ A_dist = A.*(1-mask);
 text = ones(size(A));
 ipsum = matlab_ipsum;
 mask = ones(size(A));
-for i=1:17
+[h,w] =size(A);
+i=1;
+while (30*i<h)
 text = AddTextToImage(text,ipsum(1+40*(i-1):40*i),[30*(i-1),10]);
 text(text~=1)=0;
 mask = mask.*text;
+i=i+1;
 end
 mask = zeros(size(A));
 text(text~=1)=0;
