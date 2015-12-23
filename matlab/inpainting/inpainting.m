@@ -8,35 +8,43 @@ addpath('../src/ipsum');
 %       ./src/lena.gif
 %       ./src/baboon.gif
 %% Loading the image.
-[A_orig,cmap] = imread('../src/baboon.gif');
+[A_orig,cmap] = imread('../src/lena.gif');
 A = double(A_orig);
 colormap(cmap)
 image(A_orig);
 mask = zeros(size(A));
 
 %% Create some distorsion.
-n = 16;
-for i=1:7
-    for j=1:7
-        mask(64*i-n:64*i,64*j-n:64*j) =1;
-    end
-end
-A_dist = A.*(1-mask);
 
-text = ones(size(A));
-ipsum = matlab_ipsum;
-mask = ones(size(A));
-[h,w] =size(A);
-i=1;
-while (30*i<h)
-text = AddTextToImage(text,ipsum(1+40*(i-1):40*i),[30*(i-1),10]);
-text(text~=1)=0;
-mask = mask.*text;
-i=i+1;
-end
-mask = zeros(size(A));
-text(text~=1)=0;
-mask = 1-text;
+distorsion='random';
+switch distorsion
+    case 'random'
+        p = 0.9;
+        mask = rand(size(A));
+        mask(mask<p)=1;
+        mask(mask~=1)=0;
+    case 'block'
+        n = 16;
+        for i=1:7
+            for j=1:7
+                mask(64*i-n:64*i,64*j-n:64*j) =1;
+            end
+        end
+    case 'text'
+        text = ones(size(A));
+        ipsum = matlab_ipsum;
+        mask = ones(size(A));
+        [h,w] =size(A);
+        i=1;
+        while (30*i<h)
+            text = AddTextToImage(text,ipsum(1+40*(i-1):40*i),[30*(i-1),10]);
+            text(text~=1)=0;
+            mask = mask.*text;
+            i=i+1;
+        end
+        text(text~=1)=0;
+        mask = 1-text;
+end 
 
 A_dist = A.*(1-mask);
 
@@ -66,7 +74,7 @@ close all
 threshold = 'soft'; % 'soft' or 'hard' or 'smooth'
 
 delta = 10;         % threshold parameter
-maxit = 200;        % Max itterations of algorithm
+maxit = 2000;        % Max itterations of algorithm
 
 close all;
 B_n=A_dist;
@@ -90,7 +98,7 @@ for n=1:maxit
     B_n=B_np1;
     colormap(cmap)
     image(B_np1);
-    pause(0.00001)
+    pause(0.000001)
 end
 %% Outputting the results
 imwrite(A_dist,cmap,'lena_broke.gif')
