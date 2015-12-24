@@ -5,11 +5,21 @@ dwtmode('per')
 addpath('../src/')
 
 % Question 1.1
+
+
+
+rng(1)
+
+N = 2^8;
+sigma = 0.1;
+
+nj = randn(1,N);
+
 for N_l=2:6;
 f = @(x) exp(x);
-N = 2^8;
+
 xj = linspace(0,1,N);
-fj = f(xj);
+fj = f(xj)+sigma.*nj;
     
 % Computing the wavelet transform.
 wname = 'db45';
@@ -31,7 +41,13 @@ xlabel('Coefficient','interpreter','Latex');
 ylabel('Amplitude','interpreter','Latex');
 title(['Amplitude van Coefficient voor \textit{',wname,'} wavelet'],'interpreter','Latex');
 
-exportfig(fig1,['plot/coef_exp_',wname,'_',num2str(N_l),'.eps'],... 
+if (sigma==0)
+    name=['plot/coef_exp_',wname,'_',num2str(N_l),'.eps'];
+else
+    name=['plot/coef_exp_',wname,'_',num2str(N_l),'_noise_',num2str(sigma*100),'.eps'];
+end
+
+exportfig(fig1,name,... 
     'FontSize',1.2,...
     'Bounds','loose',...
     'color','rgb');
@@ -46,10 +62,10 @@ for i=1:numel(b)-1
     x_e=x_b+b(i)-1;
     atemp=zeros(1,b(end));
     atemp(x_b:x_e)=a(x_b:x_e);
-    fj=waverec(atemp,b,wname);
+    fi=waverec(atemp,b,wname);
     hold on
-    plot(xj,fj/2+i)
-    f=fj+f;
+    plot(xj,fi/2+i)
+    f=fi+f;
     x_b=x_e+1;
 end
     
@@ -57,7 +73,13 @@ xlabel('$$x$$','interpreter','Latex');
 ylabel('$$f_i(x)$$','interpreter','Latex');
 title(['MRA voorstelling van $$e^x$$ voor \textit{',wname,'} wavelet'],'interpreter','Latex');
 
-exportfig(fig2,['plot/MRA_exp_',wname,'_',num2str(N_l),'.eps'],... 
+if (sigma==0)
+    name=['plot/MRA_exp_',wname,'_',num2str(N_l),'.eps'];
+else
+    name=['plot/MRA_exp_',wname,'_',num2str(N_l),'_noise_',num2str(sigma*100),'.eps'];
+end
+
+exportfig(fig2,name,... 
     'FontSize',1.2,...
     'Bounds','loose',...
     'color','rgb');
