@@ -1,4 +1,6 @@
-%% Wavelte image denoising
+%% Wavelets image denoising
+
+%%%%%%%%% START TASK 1.4 %%%%%%%%%%%%%%%
 clear all
 close all
 % Image names : 
@@ -12,9 +14,9 @@ A = double(A_orig);
     wname = 'db4';
     n = 5;
 % Denoising settings:
-    delta = 0.5;
+    delta = 0.7;
 % Noise settings:
-    sigma = 0.2;
+    sigma = 0.3;
     
 % Normilize signal:
 A_mean = mean(A(:));
@@ -30,34 +32,66 @@ An = A + sigma.*randn(size(A));
     
 % Ploting original and noisy images:
 fig1 = figure();
-snr = 10*log10(norm(A(:))^2/norm(An(:)-A(:))^2);
-subplot(2,2,1)
+subplot(1,2,1)
 colormap(cmap)
 image(A_orig);
 title('original picture')
-subplot(2,2,2)
+
+subplot(1,2,2)
+snr = 10*log10(norm(A(:))^2/norm(An(:)-A(:))^2);
 image(An.*sqrt(A_var)+A_mean);
-%subplot(3,2,3:6)
-%image(An-A);
 title(['picture + noise, snr = ',num2str(snr)]);
-% Denoising
+
+% Denoising with 'db4'
+wname = 'db4';
 [C,L] = wavedec2(An,n,wname);
-% Hard denoisisg
-C_hard = C.*(abs(C)>delta);
-C_soft = (abs(C)>delta).*(sign(C).*(abs(C_hard)-delta));
+C_hard = C.*(abs(C)>=delta);
+C_soft = (abs(C)>=delta).*(sign(C).*(abs(C_hard)-delta));
 [A_den_hard] = waverec2(C_hard,L,wname);
 [A_den_soft] = waverec2(C_soft,L,wname);
+
 % Plotting results;
-figure(fig1);
-subplot(2,2,3)
+fig2 = figure();
+figure(fig2);
+subplot(1,2,1)
 colormap(cmap)
-snr_hard = 10*log10(norm(A(:))^2/norm(An(:)-A_den_hard(:))^2);
+snr_hard = 10*log10(norm(A(:))^2/norm(A(:)-A_den_hard(:))^2);
 image(A_den_hard.*sqrt(A_var)+A_mean);
-title(['hard thresholding, snr = ',num2str(snr_hard)]);
-subplot(2,2,4)
-snr_soft = 10*log10(norm(A(:))^2/norm(An(:)-A_den_soft(:))^2);
+title(['db4, hard thresholding, snr = ',num2str(snr_hard)]);
+
+subplot(1,2,2)
+snr_soft = 10*log10(norm(A(:))^2/norm(A(:)-A_den_soft(:))^2);
 image(A_den_soft.*sqrt(A_var)+A_mean);
-title(['soft thresholding, snr = ',num2str(snr_soft)]);
+title(['db4, soft thresholding, snr = ',num2str(snr_soft)]);
+
+
+
+
+% Denoising with 'haar'
+wname = 'haar';
+[C,L] = wavedec2(An,n,wname);
+C_hard = C.*(abs(C)>=delta);
+C_soft = (abs(C)>=delta).*(sign(C).*(abs(C_hard)-delta));
+[A_den_hard] = waverec2(C_hard,L,wname);
+[A_den_soft] = waverec2(C_soft,L,wname);
+
+% Plotting results;
+fig3 = figure();
+figure(fig3);
+subplot(1,2,1)
+colormap(cmap)
+snr_hard = 10*log10(norm(A(:))^2/norm(A(:)-A_den_hard(:))^2);
+image(A_den_hard.*sqrt(A_var)+A_mean);
+title(['haar, hard thresholding, snr = ',num2str(snr_hard)]);
+
+subplot(1,2,2)
+snr_soft = 10*log10(norm(A(:))^2/norm(A(:)-A_den_soft(:))^2);
+image(A_den_soft.*sqrt(A_var)+A_mean);
+title(['haar, soft thresholding, snr = ',num2str(snr_soft)]);
+
+%%%%%%%%% END TASK 1.4 %%%%%%%%%%%%%%%
+
+
 %%
 % Loading and destroing a nice picture.
 
