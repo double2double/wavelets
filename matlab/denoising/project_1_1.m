@@ -2,24 +2,68 @@
 close all
 clear all
 dwtmode('per')
-
-
+addpath('../src/')
 
 % Question 1.1
+for N_l=2:6;
 f = @(x) exp(x);
-N = 100;
-n = 5;
-sigma= 0.01;        % Noise level;
-delta = 0.4;           % Treshold level;
-% No noise
-
+N = 2^8;
 xj = linspace(0,1,N);
 fj = f(xj);
-
+    
 % Computing the wavelet transform.
-[a,b]=wavedec(fj,n,'db4');
-subplot(1,2,1)
-plot(a)
+wname = 'db45';
+[a,b]=wavedec(fj,N_l,wname);
+fig1 = figure('position',[1000 1000 300 200]);
+set(0,'DefaultFigureColor','remove')
+plot(xj,a)
+hold on
+M = max(a);
+m = min(a);
+Mm = max(abs([M,m]))*2;
+for i=1:numel(b)
+    x=(1/2)^i;
+    %%plot([x,x],[Mm,-Mm],'k--');
+    plot([xj(b(i)),xj(b(i))],[Mm,-Mm],'k--');
+end
+axis([0,1,m,M])
+xlabel('Coefficient','interpreter','Latex');
+ylabel('Amplitude','interpreter','Latex');
+title(['Amplitude van Coefficient voor \textit{',wname,'} wavelet'],'interpreter','Latex');
+
+exportfig(fig1,['plot/coef_exp_',wname,'_',num2str(N_l),'.eps'],... 
+    'FontSize',1.2,...
+    'Bounds','loose',...
+    'color','rgb');
+fig2 = figure('position',[1000 1000 300 200]);
+box on
+f=0;
+x_b=1;
+f=0;
+
+for i=1:numel(b)-1
+    bi=b(i);
+    x_e=x_b+b(i)-1;
+    atemp=zeros(1,b(end));
+    atemp(x_b:x_e)=a(x_b:x_e);
+    fj=waverec(atemp,b,wname);
+    hold on
+    plot(xj,fj/2+i)
+    f=fj+f;
+    x_b=x_e+1;
+end
+    
+xlabel('$$x$$','interpreter','Latex');
+ylabel('$$f_i(x)$$','interpreter','Latex');
+title(['MRA voorstelling van $$e^x$$ voor \textit{',wname,'} wavelet'],'interpreter','Latex');
+
+exportfig(fig2,['plot/MRA_exp_',wname,'_',num2str(N_l),'.eps'],... 
+    'FontSize',1.2,...
+    'Bounds','loose',...
+    'color','rgb');
+close all
+end
+%%
 
 % With noise
 fjn = fj + randn(1,N).*sigma;
