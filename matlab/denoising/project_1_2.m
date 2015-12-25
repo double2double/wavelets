@@ -1,160 +1,131 @@
 %% Wavelets image denoising
 
 %%%%%%%%% START TASK 1.4 %%%%%%%%%%%%%%%
-clear all
+clear
 close all
 % Image names : 
-%       ./src/lena.gif
-%       ./src/baboon.gif
+%       ../src/lena.gif
+%       ../src/baboon.gif
 
-[A_orig,cmap] = imread('../src/lena.gif');
+[A_orig,cmap] =imread('../src/lena.gif');
+
+sigma = 0.3;
+
 A = double(A_orig);
 
-% Wavelet settings:
-    wname = 'db4';
-    n = 5;
-% Denoising settings:
-    delta = 0.7;
-% Noise settings:
-    sigma = 0.3;
-    
-% Normilize signal:
 A_mean = mean(A(:));
 A = A-A_mean;
 A_var = var(A(:));
 A = (A./sqrt(A_var));
-
-
-% Adding the noise    
-
+rng(1);
 An = A + sigma.*randn(size(A));
+
+rb={'rbio1.1', 'rbio1.3',  'rbio1.5','rbio2.2', 'rbio2.4',  'rbio2.6', 'rbio2.8','rbio3.1', 'rbio3.3',  'rbio3.5', 'rbio3.7','rbio3.9', 'rbio4.4','rbio5.5', 'rbio6.' };
+br = {'bior1.1', 'bior1.3' , 'bior1.5','bior2.2', 'bior2.4' , 'bior2.6', 'bior2.8','bior3.1', 'bior3.3' , 'bior3.5', 'bior3.7','bior3.9', 'bior4.4' , 'bior5.5', 'bior6.8'};
+db={'db2','db3','db4','db5','db6','db7','db8','db9','db10','db11','db12','db13','db14','db15','db16','db17','db18','db19','db20','db21','db22','db23','db24','db25','db26','db27','db28','db29','db30','db31','db32','db33','db34','db35','db36','db37','db38','db39','db40','db41','db42','db43','db44','db45'};
+sym={'sym2','sym3','sym4','sym5','sym6','sym7','sym8','sym9','sym10','sym11','sym12','sym13','sym14','sym15','sym16','sym17','sym18','sym19','sym20','sym21','sym22','sym23','sym24','sym25','sym26','sym27','sym28','sym29','sym30','sym31','sym32','sym33','sym34','sym35','sym36','sym37','sym38','sym39','sym40','sym41','sym42','sym43','sym44','sym45'};
+cf = {'coif1', 'coif2','coif3','coif4','coif5'};
+dm = {'dmey','haar'};
+all = {'rbio1.1', 'rbio1.3',  'rbio1.5','rbio2.2', 'rbio2.4',  'rbio2.6', 'rbio2.8','rbio3.1', 'rbio3.3',  'rbio3.5', 'rbio3.7','rbio3.9', 'rbio4.4','rbio5.5', 'rbio6.8','bior1.1', 'bior1.3' , 'bior1.5','bior2.2', 'bior2.4' , 'bior2.6', 'bior2.8','bior3.1', 'bior3.3' , 'bior3.5', 'bior3.7','bior3.9', 'bior4.4' , 'bior5.5','bior6.8','db2','db3','db4','db5','db6','db7','db8','db9','db10','db11','db12','db13','db14','db15','db16','db17','db18','db19','db20','db21','db22','db23','db24','db25','db26','db27','db28','db29','db30','db31','db32','db33','db34','db35','db36','db37','db38','db39','db40','db41','db42','db43','db44','db45','sym2','sym3','sym4','sym5','sym6','sym7','sym8','sym9','sym10','sym11','sym12','sym13','sym14','sym15','sym16','sym17','sym18','sym19','sym20','sym21','sym22','sym23','sym24','sym25','sym26','sym27','sym28','sym29','sym30','sym31','sym32','sym33','sym34','sym35','sym36','sym37','sym38','sym39','sym40','sym41','sym42','sym43','sym44','sym45','coif1', 'coif2','coif3','coif4','coif5','dmey','haar'};
+
+%%
+for wname_cell={'bior6.8'}
     
+    close all
+    wname = char(wname_cell);
+    n = 18;
+    [C,L] = wavedec2(An,n,wname);
     
-% Ploting original and noisy images:
-fig1 = figure();
-subplot(1,2,1)
-colormap(cmap)
-image(A_orig);
-title('original picture')
+    SoftThresh  = @(x,T) x.*max( 0, 1-T./max(abs(x),1e-10) );
+    HardThresh  = @(x,T) x .* (abs(x) >= T);
+    SmootThresh = @(x,T) -x.*exp(-(x/T).^4)+x;
+    snr_image = @(A,An) 20*log10(norm(A(:))/norm(A(:)-An(:)));
 
-subplot(1,2,2)
-snr = 10*log10(norm(A(:))^2/norm(An(:)-A(:))^2);
-image(An.*sqrt(A_var)+A_mean);
-title(['picture + noise, snr = ',num2str(snr)]);
+    allThr = linspace(0,2,40);
 
-% Denoising with 'db4'
-wname = 'db4';
-[C,L] = wavedec2(An,n,wname);
-C_hard = C.*(abs(C)>=delta);
-C_soft = (abs(C)>=delta).*(sign(C).*(abs(C_hard)-delta));
-[A_den_hard] = waverec2(C_hard,L,wname);
-[A_den_soft] = waverec2(C_soft,L,wname);
+    allSnr=zeros(3,numel(allThr));
 
-% Plotting results;
-fig2 = figure();
-figure(fig2);
-subplot(1,2,1)
-colormap(cmap)
-snr_hard = 10*log10(norm(A(:))^2/norm(A(:)-A_den_hard(:))^2);
-image(A_den_hard.*sqrt(A_var)+A_mean);
-title(['db4, hard thresholding, snr = ',num2str(snr_hard)]);
+    for i=1:3
+        thresH=i;
+        for j=1:numel(allThr)
+            T=allThr(j);
+        switch thresH
+            case 1
+                threshold = @(C)SoftThresh(C,T);
+            case 2
+                threshold = @(C)HardThresh(C,T);
+            case 3
+                threshold = @(C)SmootThresh(C,T);
+            otherwise
+                error('thresholding kind unknown')
+        end
+            
+            C_tres = threshold(C);
+            [A_den] = waverec2(C_tres,L,wname);
 
-subplot(1,2,2)
-snr_soft = 10*log10(norm(A(:))^2/norm(A(:)-A_den_soft(:))^2);
-image(A_den_soft.*sqrt(A_var)+A_mean);
-title(['db4, soft thresholding, snr = ',num2str(snr_soft)]);
+            snr = snr_image(A,A_den);
+            allSnr(i,j)=snr;
+            disp(i);
+        end
+    end
 
+fig1 = figure('position',[1000 1000 300 200]);
+box on
+for thresH=1:3
+    hold on
+    plot(allThr,allSnr(thresH,:))
+end
+snr = snr_image(A,An);
+plot([0,allThr(end)],[snr,snr],'k--');
 
+xlabel('Threshold','interpreter','Latex');
+ylabel('Snr','interpreter','Latex');
+h=title(['SNR voor ruisreductie met \textit{',wname,'} wavelet'],'interpreter','Latex');
+legend('soft','hard','smooth','Ruisig','Location','northeast');
 
+name=['plot/snr_image_',wname,'_',num2str(sigma*100),'.eps'];
 
-% Denoising with 'haar'
-wname = 'haar';
-[C,L] = wavedec2(An,n,wname);
-C_hard = C.*(abs(C)>=delta);
-C_soft = (abs(C)>=delta).*(sign(C).*(abs(C_hard)-delta));
-[A_den_hard] = waverec2(C_hard,L,wname);
-[A_den_soft] = waverec2(C_soft,L,wname);
+exportfig(fig1,name,... 
+    'FontSize',1.2,...
+    'Bounds','loose',...
+    'color','rgb');
 
-% Plotting results;
-fig3 = figure();
-figure(fig3);
-subplot(1,2,1)
-colormap(cmap)
-snr_hard = 10*log10(norm(A(:))^2/norm(A(:)-A_den_hard(:))^2);
-image(A_den_hard.*sqrt(A_var)+A_mean);
-title(['haar, hard thresholding, snr = ',num2str(snr_hard)]);
+% Plot best restul
+[x,y]= max(allSnr');
+[~,x] = max(x);
+y=y(x);
 
-subplot(1,2,2)
-snr_soft = 10*log10(norm(A(:))^2/norm(A(:)-A_den_soft(:))^2);
-image(A_den_soft.*sqrt(A_var)+A_mean);
-title(['haar, soft thresholding, snr = ',num2str(snr_soft)]);
+disp(max(allSnr(:)));
+disp(allSnr(x,y));
+switch x
+    case 1
+        threshold = @(C)SoftThresh(C,allThr(y));
+    case 2
+        threshold = @(C)HardThresh(C,allThr(y));
+    case 3
+        threshold = @(C)SmootThresh(C,allThr(y));
+    otherwise
+        error('thresholding kind unknown')
+end
 
+C_tres = threshold(C);
+[A_den] = waverec2(C_tres,L,wname);
+
+A_denIm = uint8(A_den*sqrt(A_var)+A_mean);
+A_nIm = uint8(An*sqrt(A_var)+A_mean);
+
+colormap(cmap);
+imwrite(A_denIm,['./plot/lenaDen_',wname,'.png']);
+colormap(cmap);
+imwrite(A_nIm,['./plot/lenaNoise_',wname,'.png']);
+
+end
 %%%%%%%%% END TASK 1.4 %%%%%%%%%%%%%%%
 
-
-%%
-% Loading and destroing a nice picture.
-
-clear all
-close all
-% Image names : 
-%       ./src/lena.gif
-%       ./src/baboon.gif
-%% Loading the image.
-[A_orig,cmap] = imread('../src/lena.gif');
-A = double(A_orig);
-colormap(cmap)
-image(A_orig);
-mask = zeros(size(A));
-
-%% Create some distorsion.
-n = 16;
-for i=1:7
-    for j=1:7
-        mask(64*i-n:64*i,64*j-n:64*j) =1;
-    end
-end
-A_dist = A;
-A_dist = A.*(1-mask);
-%% Plotting image + distorsion
-close all
-colormap(cmap)
-image(A_dist);
 %%
 
-[C,S] = wavedec2(A_dist,2,'haar');
-coef = reshape(C,512,512);
-image(coef);
 
-%% Settings for the  wavelets.
-dwtmode('sym'); % sym,per
-wname = 'db5'; % bior4.4,haar,db1,db2
-Nb_levels = 20;
 
-t = wtree(A_dist,2,wname);
-%plot(t)
-%% Creating the treshold function
-SoftThresh = @(x,T)x.*max( 0, 1-T./max(abs(x),1e-10) );
-HardThresh = @(x,T) x .* (abs(x) >= T);
-clf;
-T = linspace(-1,1,1000);
-%plot( T, SoftThresh(T,.5) );
-%plot( T, HardThresh(T,.5) );
-axis('equal');
-%% Setting up the transformation
-PsiS = @(f)wavedec2(f,Nb_levels,wname);
-Psi = @(C,S)waverec2(C,S,wname);
-
-%% Denoising test
-%A_noise = randn(512)*20 +A;
-%[C,S] = PsiS(A_noise);
-%C = SoftThresh(C,20);
-%colormap(cmap);
-%A_denoise = Psi(C,S);
-%subplot(1,2,1);
-%image(A_noise)
-%subplot(1,2,2);
-%image(A_denoise)
 
 
 

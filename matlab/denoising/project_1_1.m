@@ -1,6 +1,6 @@
 % The project
 close all
-clear all
+
 dwtmode('per')
 addpath('../src/')
 

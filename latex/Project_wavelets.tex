@@ -51,7 +51,7 @@ De verklaring hiervoor is dat de zachte threshold functie elke waarden zal wijzi
 Om dit te illustreren zijn de drie threshold functies weergegeven in Figuur \ref{fig:Threshold}.
 
 Om dit deel af te sluiten is in figuur \ref{fig:Optimale_ruisReductie} de optimale ruis reductie weergegeven.
-Deze reducties maakt gebruik van daubechie wavelet van orde 2 en, een threshold waarden van 0.4 en de zachte treshold functie.
+Deze reducties maakt gebruik van daubechie wavelet van orde 2 en een threshold waarden van 0.4 met  de zachte treshold functie.
 
 
 \paragraph{Tussenliggende waarden bepalen}
@@ -199,26 +199,71 @@ Deze reducties maakt gebruik van daubechie wavelet van orde 2 en, een threshold 
 
 \subsection{Moving on to images}
 
-\subsubsection{Task 1.4}
+\subsubsection{Implementatie van ruis reductie algoritme}
+
+
+De eenvoudigste manier voor ruis uit een afbeelding te halen aan de hand van een wavelet transformatie is door exact de zelfde strategie toe te passen als in het 1 dimensionaal geval.
+Dit houd in dat eerst de wavelet coefficienten worden bepaald voor de ruisige afbeelding.
+Nadien worden deze coefficienten met een threshold functie op een niet lineaire manier gefilterd.
+De laatste stap is dan de afbeelding reconstrueren aan de hand van de gefilterde coefficienten.
+Een concrete implementatie van dit algoritme is terug te vinden in de appendix.
+
+\subsubsection{Verschil in threshold functies}
+
+Voor een goed beeld te krijgen van de invloed van de threshold functie op de ruisreductie hebben we de kwaliteit van de ruisreductie vergeleken voor de verschillende threshold functies.
+Voor elke threshold functie werden er een aantal threshold parameters getest.
+Een voorbeeld resultaat van zo een test is te zien in Figuur \ref{fig:snr_image_bior6}.
+Uit deze afbeelding is af te leiden dat zachte threshold functie het beste resultaat opleverd voor de ruisreductie.
+In Figuur \ref{fig:snr_image_bior6} werd gebruik gemaakt van de biorthogonale wavelet van orde 6,8.
+Voor de meeste andere transformaties werden gelijkaardige resultaten bekomen.
+We kunnen dus besluiten dat de zachte threshold functie de beste ruisreductie oplevert.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{../src/denoising/image/snr_image_bior68_30.pdf}
+\caption{}
+\label{fig:snr_image_bior6}
+\end{figure}
+
+
+\subsubsection{Optimale threshold bepalen(met vals spelen)}
+
+Uit het vorige experiment hebben we kunnen besluiten dat in alle gevallen de zachte threshold functie de beste denoising geeft.
+Een tweede resultaat dat opviel was dat de SNR curves steeds vlakke curves bleken te zijn voor de zachte threshold functie.
+Door het gladde karakter van deze curve is het gebruik van een optimalisatie routine voor de SNR costfunctie makkelijk te implementeren.
+De cost functie is als volgt gedefini\"eerd in matlab.
+\begin{verbatim}
+costFun = @(delta) -snr_denoising(mode, thres, delta, wname, ...
+                   Nb_levels, A_origineel, A_noise,0);
+\end{verbatim}
+Dit is een functie in de parameter \verb|delta|. Dit is de waarden van de threshold.
+Merk op dat voor de berekening van de SNR waarden de originele afbeelding moet gekend zijn. (Vals spelen dus)
+Door gebruik te maken van \verb|fmincon| is de keuze van de optimale parameter eenvoudig gemaakt.
+
+Een voorbeeld resultaat van de optimale ruis onderdrukking is gegeven in figuur \ref{fig:optimaleRuisBIOR}.
+In deze figuur is opnieuw de biorthogonale wavelet van orde 6,8 gebruikt.
+
 
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{../src/denoising/task1_4_noise}
+        \includegraphics[width=\textwidth]{../src/denoising/image/lenaNoise_bior68.png}
         \caption{Met tekst beschadiging}
         \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{../src/denoising/task1_4_noise}
+        \includegraphics[width=\textwidth]{../src/denoising/image/lenaDen_bior68.png}
         \caption{Na de reconstructie}
         \label{fig:mouse}
     \end{subfigure}
-    \caption{Pictures of lena}\label{fig:animals}
+    \caption{Pictures of lena}\label{fig:optimaleRuisBIOR}
 \end{figure}
 
 
+\subsubsection{Optimale threshold bepalen(zonder vals spelen)}
 
 
 

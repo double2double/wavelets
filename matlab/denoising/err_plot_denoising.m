@@ -1,4 +1,4 @@
-function [rel_err] = err_plot_denoising(mode, thres, delta, wname, Nb_levels, A_orig, A_noise)
+function rel_err = err_plot_denoising(mode, thres, delta, wname, Nb_levels, A_orig, A_noise,plotYN)
 
 % The original picture A_orig is contaminated with noise. The resulting
 % noised picture is A_noise. With different denoising techniques A_noise is
@@ -17,25 +17,33 @@ function [rel_err] = err_plot_denoising(mode, thres, delta, wname, Nb_levels, A_
 %   - Nb_levels: (integer) the number of levels in wavelet transform
 %   -A_orig: the original picture without any noise added (double matrix format)
 %   -A_noise: the noisy picture that we will try to denoise (double matrix format)
+%   -plotYN: (optional) If set to one, the function will generate plots.
 %
 % OUTPUTS:
 %   - a figure is created of the relative error vs delta parameter
 %   - rel_err: a tensor containing all the erros (not usefull)
 
+if ~exist('plotYN','var')
+  plotYN=0;
+end
 
-dwtmode(mode);    % Boundary conditions: 'sym','per'
+if plotYN
+    dwtmode(mode);    % Boundary conditions: 'sym','per'
+else
+    dwtmode(mode,'nodisp');
+end
 
 % Creating different treshold functions
 SoftThresh  = @(x,T) x.*max( 0, 1-T./max(abs(x),1e-10) );
 HardThresh  = @(x,T) x .* (abs(x) >= T);
 SmootThresh = @(x,T) -x.*exp(-(x/T).^4)+x;
-
+snr_image   = @(A,An) -20*log10( norm(A - An,'fro') / norm(A)); 
 % init relative error 
 rel_err = zeros(length(delta),length(thres),length(wname));
 % frobenius norm of original picture
 A_orig_norm = norm(A_orig,'fro');
 % relative error of noisy picture
-err_noise =  norm(A_orig - A_noise,'fro') / A_orig_norm; 
+err_noise = snr_image(A_orig,A_noise);
 
 % for wname, ...
 %   for kind, ...
@@ -68,34 +76,33 @@ for i = 1:length(wname) % iterate over all kinds of wavelets
             % inverse wavelet transform
             [A] = waverec2(C_thres,S,wname{i});
             % relative error between denoised and original signal
-            rel_err(k,j,i) = norm(A_orig - A,'fro') / A_orig_norm;
+            rel_err(k,j,i) = snr_image(A_orig,A);
         end
     end
 end
 
-
-% make plot
-legendInfo = cell(length(thres),1);
-counter = 1;
-figure
-hold on
-%set(gca,'YScale','log');
-set(gca,'XScale','log');
-for i = 1:length(wname)
-    for j = 1:length(thres)
-        plot(delta, rel_err(:,j,i),'LineWidth',1.5)
-        legendInfo(counter) = strcat(wname{i}, ', ', thres(j), ', n=' ,num2str(Nb_levels));
-        counter = counter + 1;
+if (plotYN)
+    % make plot
+    legendInfo = cell(length(thres),1);
+    counter = 1;
+    figure
+    hold on
+    
+    for i = 1:length(wname)
+        for j = 1:length(thres)
+            plot(delta, rel_err(:,j,i),'LineWidth',1.5)
+            legendInfo(counter) = strcat(wname{i}, ', ', thres(j), ', n=' ,num2str(Nb_levels));
+            counter = counter + 1;
+        end
     end
+    plot(delta(1), err_noise,'LineWidth',1.5)
+    xlabel('threshold parameter \delta', 'Fontsize', 18);
+    ylabel('relative error (Frobenius)', 'Fontsize', 18);
+    title('norm(A\_denoised - A\_orig) / norm(A\_orig)')
+    
+    set(gca,'FontSize',15)
+    legend(legendInfo, 'Location','northeast','Fontsize', 20)
+    hold off
 end
-plot(delta(1), err_noise,'LineWidth',1.5)
-xlabel('threshold parameter \delta', 'Fontsize', 18);
-ylabel('relative error (Frobenius)', 'Fontsize', 18);
-title('norm(A\_denoised - A\_orig) / norm(A\_orig)')
-%axis([0 xmax ymin 1])
-set(gca,'FontSize',15)
-legend(legendInfo, 'Location','northwest','Fontsize', 20)
-hold off
-
 
 

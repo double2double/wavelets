@@ -26,8 +26,9 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Academisch voorbeeld met ruis}{1}{subsection.1.2}}
 \@writefile{toc}{\contentsline {paragraph}{Tussenliggende waarden bepalen}{2}{section*.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Moving on to images}{2}{subsection.1.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1}Task 1.4}{2}{subsubsection.1.3.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Inpainting}{2}{section.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1}Implementatie van ruis reductie algoritme}{2}{subsubsection.1.3.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.2}Verschil in threshold functies}{2}{subsubsection.1.3.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.3}Optimale threshold bepalen(met vals spelen)}{2}{subsubsection.1.3.3}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:tiger}{{1a}{3}{Met tekst beschadiging\relax }{figure.caption.2}{}}
 \newlabel{sub@fig:tiger}{{a}{3}{Met tekst beschadiging\relax }{figure.caption.2}{}}
@@ -67,49 +68,53 @@
 \newlabel{fig:Optimale_ruisReductie}{{6}{6}{\relax }{figure.caption.7}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \relax }}{7}{figure.caption.8}}
 \newlabel{fig:Threshold}{{7}{7}{\relax }{figure.caption.8}{}}
-\newlabel{fig:tiger}{{8a}{7}{Met tekst beschadiging\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:tiger}{{a}{7}{Met tekst beschadiging\relax }{figure.caption.9}{}}
-\newlabel{fig:mouse}{{8b}{7}{Na de reconstructie\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:mouse}{{b}{7}{Na de reconstructie\relax }{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Pictures of lena\relax }}{7}{figure.caption.9}}
-\newlabel{fig:animals}{{8}{7}{Pictures of lena\relax }{figure.caption.9}{}}
-\newlabel{fig:tiger}{{9a}{7}{Met tekst beschadiging\relax }{figure.caption.10}{}}
-\newlabel{sub@fig:tiger}{{a}{7}{Met tekst beschadiging\relax }{figure.caption.10}{}}
-\newlabel{fig:mouse}{{9b}{7}{Na de reconstructie\relax }{figure.caption.10}{}}
-\newlabel{sub@fig:mouse}{{b}{7}{Na de reconstructie\relax }{figure.caption.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Pictures of lena\relax }}{7}{figure.caption.10}}
-\newlabel{fig:animals}{{9}{7}{Pictures of lena\relax }{figure.caption.10}{}}
-\newlabel{fig:tiger}{{10a}{8}{Met tekst beschadiging\relax }{figure.caption.11}{}}
-\newlabel{sub@fig:tiger}{{a}{8}{Met tekst beschadiging\relax }{figure.caption.11}{}}
-\newlabel{fig:mouse}{{10b}{8}{Na de reconstructie\relax }{figure.caption.11}{}}
-\newlabel{sub@fig:mouse}{{b}{8}{Na de reconstructie\relax }{figure.caption.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Pictures of lena\relax }}{8}{figure.caption.11}}
-\newlabel{fig:baboon}{{10}{8}{Pictures of lena\relax }{figure.caption.11}{}}
-\newlabel{fig:tiger}{{11a}{8}{Met random beschadiging (70 procent)\relax }{figure.caption.12}{}}
-\newlabel{sub@fig:tiger}{{a}{8}{Met random beschadiging (70 procent)\relax }{figure.caption.12}{}}
-\newlabel{fig:mouse}{{11b}{8}{Na de reconstructie\relax }{figure.caption.12}{}}
-\newlabel{sub@fig:mouse}{{b}{8}{Na de reconstructie\relax }{figure.caption.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Pictures of lena\relax }}{8}{figure.caption.12}}
-\newlabel{fig:baboon}{{11}{8}{Pictures of lena\relax }{figure.caption.12}{}}
-\newlabel{fig:fig1}{{12a}{9}{tekstbeschadigde figuur. \\ \ \\ \ \\ \ \\ \ \\\relax }{figure.caption.13}{}}
-\newlabel{sub@fig:fig1}{{a}{9}{tekstbeschadigde figuur. \\ \ \\ \ \\ \ \\ \ \\\relax }{figure.caption.13}{}}
-\newlabel{fig:mouse}{{12b}{9}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.\relax }{figure.caption.13}{}}
-\newlabel{sub@fig:mouse}{{b}{9}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.\relax }{figure.caption.13}{}}
-\newlabel{fig:tiger}{{12c}{9}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Soft thresholding is gebruikt met parameter $\delta = 10$. Hier is het goed gelukt, de blauwe curve bereikt zijn mimimum rond $\delta = 10$. \\\relax }{figure.caption.13}{}}
-\newlabel{sub@fig:tiger}{{c}{9}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Soft thresholding is gebruikt met parameter $\delta = 10$. Hier is het goed gelukt, de blauwe curve bereikt zijn mimimum rond $\delta = 10$. \\\relax }{figure.caption.13}{}}
-\newlabel{fig:mouse}{{12d}{9}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Hard thresholding is gebruikt met parameter $\delta = 10$. Hier is het mislukt. De reden hiervoor is dat de rode curve voor $\delta = 10$ totaal niet het mimimum bereikt.\relax }{figure.caption.13}{}}
-\newlabel{sub@fig:mouse}{{d}{9}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Hard thresholding is gebruikt met parameter $\delta = 10$. Hier is het mislukt. De reden hiervoor is dat de rode curve voor $\delta = 10$ totaal niet het mimimum bereikt.\relax }{figure.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Effect van threshold parameter en threshold techniek bij inpainting\relax }}{9}{figure.caption.13}}
-\newlabel{fig:baboon}{{12}{9}{Effect van threshold parameter en threshold techniek bij inpainting\relax }{figure.caption.13}{}}
-\newlabel{fig:tiger}{{13a}{10}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent. verschillende threshold technieken zijn gebruikt.(dezelfde figuur als vorige pagina)\relax }{figure.caption.14}{}}
-\newlabel{sub@fig:tiger}{{a}{10}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent. verschillende threshold technieken zijn gebruikt.(dezelfde figuur als vorige pagina)\relax }{figure.caption.14}{}}
-\newlabel{fig:mouse}{{13b}{10}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.verschillende soorten wavelets zijn gebruikt.\relax }{figure.caption.14}{}}
-\newlabel{sub@fig:mouse}{{b}{10}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.verschillende soorten wavelets zijn gebruikt.\relax }{figure.caption.14}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces plots error vs $\delta $\relax }}{10}{figure.caption.14}}
-\newlabel{fig:baboon}{{13}{10}{plots error vs $\delta $\relax }{figure.caption.14}{}}
-\newlabel{fig:tiger}{{14a}{11}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. verschillende threshold technieken zijn gebruikt. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$. Conclusie: opletten met de waarde van de threshold parameter.\relax }{figure.caption.15}{}}
-\newlabel{sub@fig:tiger}{{a}{11}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. verschillende threshold technieken zijn gebruikt. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$. Conclusie: opletten met de waarde van de threshold parameter.\relax }{figure.caption.15}{}}
-\newlabel{fig:mouse}{{14b}{11}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$.verschillende soorten wavelets zijn gebruikt. Conclusie: opletten met de waarde van de threshold parameter..\relax }{figure.caption.15}{}}
-\newlabel{sub@fig:mouse}{{b}{11}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$.verschillende soorten wavelets zijn gebruikt. Conclusie: opletten met de waarde van de threshold parameter..\relax }{figure.caption.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces plots error vs $\delta $\relax }}{11}{figure.caption.15}}
-\newlabel{fig:baboon}{{14}{11}{plots error vs $\delta $\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces \relax }}{7}{figure.caption.9}}
+\newlabel{fig:snr_image_bior6}{{8}{7}{\relax }{figure.caption.9}{}}
+\newlabel{fig:tiger}{{9a}{8}{Met tekst beschadiging\relax }{figure.caption.10}{}}
+\newlabel{sub@fig:tiger}{{a}{8}{Met tekst beschadiging\relax }{figure.caption.10}{}}
+\newlabel{fig:mouse}{{9b}{8}{Na de reconstructie\relax }{figure.caption.10}{}}
+\newlabel{sub@fig:mouse}{{b}{8}{Na de reconstructie\relax }{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Pictures of lena\relax }}{8}{figure.caption.10}}
+\newlabel{fig:optimaleRuisBIOR}{{9}{8}{Pictures of lena\relax }{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.4}Optimale threshold bepalen(zonder vals spelen)}{8}{subsubsection.1.3.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Inpainting}{8}{section.2}}
+\newlabel{fig:tiger}{{10a}{9}{Met tekst beschadiging\relax }{figure.caption.11}{}}
+\newlabel{sub@fig:tiger}{{a}{9}{Met tekst beschadiging\relax }{figure.caption.11}{}}
+\newlabel{fig:mouse}{{10b}{9}{Na de reconstructie\relax }{figure.caption.11}{}}
+\newlabel{sub@fig:mouse}{{b}{9}{Na de reconstructie\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Pictures of lena\relax }}{9}{figure.caption.11}}
+\newlabel{fig:animals}{{10}{9}{Pictures of lena\relax }{figure.caption.11}{}}
+\newlabel{fig:tiger}{{11a}{9}{Met tekst beschadiging\relax }{figure.caption.12}{}}
+\newlabel{sub@fig:tiger}{{a}{9}{Met tekst beschadiging\relax }{figure.caption.12}{}}
+\newlabel{fig:mouse}{{11b}{9}{Na de reconstructie\relax }{figure.caption.12}{}}
+\newlabel{sub@fig:mouse}{{b}{9}{Na de reconstructie\relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Pictures of lena\relax }}{9}{figure.caption.12}}
+\newlabel{fig:baboon}{{11}{9}{Pictures of lena\relax }{figure.caption.12}{}}
+\newlabel{fig:tiger}{{12a}{10}{Met random beschadiging (70 procent)\relax }{figure.caption.13}{}}
+\newlabel{sub@fig:tiger}{{a}{10}{Met random beschadiging (70 procent)\relax }{figure.caption.13}{}}
+\newlabel{fig:mouse}{{12b}{10}{Na de reconstructie\relax }{figure.caption.13}{}}
+\newlabel{sub@fig:mouse}{{b}{10}{Na de reconstructie\relax }{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Pictures of lena\relax }}{10}{figure.caption.13}}
+\newlabel{fig:baboon}{{12}{10}{Pictures of lena\relax }{figure.caption.13}{}}
+\newlabel{fig:fig1}{{13a}{11}{tekstbeschadigde figuur. \\ \ \\ \ \\ \ \\ \ \\\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:fig1}{{a}{11}{tekstbeschadigde figuur. \\ \ \\ \ \\ \ \\ \ \\\relax }{figure.caption.14}{}}
+\newlabel{fig:mouse}{{13b}{11}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:mouse}{{b}{11}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.\relax }{figure.caption.14}{}}
+\newlabel{fig:tiger}{{13c}{11}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Soft thresholding is gebruikt met parameter $\delta = 10$. Hier is het goed gelukt, de blauwe curve bereikt zijn mimimum rond $\delta = 10$. \\\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:tiger}{{c}{11}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Soft thresholding is gebruikt met parameter $\delta = 10$. Hier is het goed gelukt, de blauwe curve bereikt zijn mimimum rond $\delta = 10$. \\\relax }{figure.caption.14}{}}
+\newlabel{fig:mouse}{{13d}{11}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Hard thresholding is gebruikt met parameter $\delta = 10$. Hier is het mislukt. De reden hiervoor is dat de rode curve voor $\delta = 10$ totaal niet het mimimum bereikt.\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:mouse}{{d}{11}{figuur \ref {fig:fig1} ingepaint met 'db5' wavelets. Hard thresholding is gebruikt met parameter $\delta = 10$. Hier is het mislukt. De reden hiervoor is dat de rode curve voor $\delta = 10$ totaal niet het mimimum bereikt.\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Effect van threshold parameter en threshold techniek bij inpainting\relax }}{11}{figure.caption.14}}
+\newlabel{fig:baboon}{{13}{11}{Effect van threshold parameter en threshold techniek bij inpainting\relax }{figure.caption.14}{}}
+\newlabel{fig:tiger}{{14a}{12}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent. verschillende threshold technieken zijn gebruikt.(dezelfde figuur als vorige pagina)\relax }{figure.caption.15}{}}
+\newlabel{sub@fig:tiger}{{a}{12}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent. verschillende threshold technieken zijn gebruikt.(dezelfde figuur als vorige pagina)\relax }{figure.caption.15}{}}
+\newlabel{fig:mouse}{{14b}{12}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.verschillende soorten wavelets zijn gebruikt.\relax }{figure.caption.15}{}}
+\newlabel{sub@fig:mouse}{{b}{12}{Voor verschillende waarden van de threshold parameter $\delta $ is de figuur ingepaint met telkens $50$ iteraties. De relatieve fout t.o.v. de onbeschadigde figuur is telkens berekent.verschillende soorten wavelets zijn gebruikt.\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces plots error vs $\delta $\relax }}{12}{figure.caption.15}}
+\newlabel{fig:baboon}{{14}{12}{plots error vs $\delta $\relax }{figure.caption.15}{}}
+\newlabel{fig:tiger}{{15a}{13}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. verschillende threshold technieken zijn gebruikt. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$. Conclusie: opletten met de waarde van de threshold parameter.\relax }{figure.caption.16}{}}
+\newlabel{sub@fig:tiger}{{a}{13}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. verschillende threshold technieken zijn gebruikt. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$. Conclusie: opletten met de waarde van de threshold parameter.\relax }{figure.caption.16}{}}
+\newlabel{fig:mouse}{{15b}{13}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$.verschillende soorten wavelets zijn gebruikt. Conclusie: opletten met de waarde van de threshold parameter..\relax }{figure.caption.16}{}}
+\newlabel{sub@fig:mouse}{{b}{13}{Voor verschillende waarden van de threshold parameter $\delta $ is een noisy figuur gedenoised. De relatieve fout t.o.v. de originele figuur(zonder noise) is telkens berekent. De onbewerkte noisy figuur heeft een relatieve fout van $0.2$.verschillende soorten wavelets zijn gebruikt. Conclusie: opletten met de waarde van de threshold parameter..\relax }{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces plots error vs $\delta $\relax }}{13}{figure.caption.16}}
+\newlabel{fig:baboon}{{15}{13}{plots error vs $\delta $\relax }{figure.caption.16}{}}
