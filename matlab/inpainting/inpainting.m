@@ -15,7 +15,7 @@ image(A_orig);
 
 %% Create some distorsion.
 
-distorsion='grid';
+distorsion='text';
 mask = zeros(size(A));
 
 switch distorsion
@@ -62,8 +62,8 @@ image(A_dist);
 %% Settings for the  wavelets.
 
 dwtmode('per');     % Boundary conditions: sym,per
-wname = 'coif4';      % Type of wavelet: bior4.4,haar,db1,db2
-Nb_levels = 10;     % Nb of resolution levels.
+wname = 'db5';      % Type of wavelet: bior4.4,haar,db1,db2
+Nb_levels = 6;     % Nb of resolution levels.
 
 % Creating different treshold functions
 SoftThresh  = @(x,T) x.*max( 0, 1-T./max(abs(x),1e-10) );
@@ -94,23 +94,20 @@ switch threshold
 end
 
 
+
+
 if redundant
-    % SWC = swt2(X,N,'wname')
-    % X = iswt2(SWC,'wname')
-%     PsiS = @(f) swt2(f,Nb_levels,wname);
-%     Psi = @(SWC) iswt2(SWC,wname);
     
     for n=1:maxit
         disp(n);
-%         SWC = swt2(B_n,Nb_levels,wname);
-%         SWC = threshold(SWC);
-%         B_np1 = (1-mask).*A_dist+mask.*iswt2(SWC,wname);
-        [A1,H1,V1,D1] = swt2(B_n,Nb_levels,wname);
-        A1 = threshold(A1); H1 = threshold(H1); V1 = threshold(V1); D1 = threshold(D1);
-        B_np1 = (1-mask).*A_dist+mask.*iswt2(A1,H1,V1,D1,wname);
+        SWC = swt2(B_n,Nb_levels,wname);
+        SWC = threshold(SWC);
+        B_np1 = (1-mask).*A_dist+mask.*iswt2(SWC,wname);
         B_n=B_np1;
         colormap(cmap)
         image(B_np1);
+        snr = 10*log10( norm(A,'fro')^2 / norm(A - B_n,'fro')^2 );
+        title(strcat('SNR = ', num2str(snr)), 'Fontsize', 18);
         pause(0.000001)
     end
 
@@ -127,10 +124,8 @@ else
         B_n=B_np1;
         colormap(cmap)
         image(B_np1);
-        %if n == maxit
-            snr = 10*log10( norm(A,'fro')^2 / norm(A - B_n,'fro')^2 );
-            title(strcat('SNR = ', num2str(snr)), 'Fontsize', 18);
-        %end
+        snr = 10*log10( norm(A,'fro')^2 / norm(A - B_n,'fro')^2 );
+        title(strcat('SNR = ', num2str(snr)), 'Fontsize', 18);
         pause(0.000001)
     end
 end 
