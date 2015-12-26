@@ -15,7 +15,7 @@ image(A_orig);
 
 %% Create some distorsion.
 
-distorsion='text';
+distorsion='grid';
 mask = zeros(size(A));
 
 switch distorsion
@@ -45,6 +45,9 @@ switch distorsion
         end
         text(text~=1)=0;
         mask = 1-text;
+    case 'grid'
+        mask = zeros(size(A));
+        mask(1:10:end,:)=1; mask(:,1:10:end)=1;
 end 
 
 A_dist = A.*(1-mask);
