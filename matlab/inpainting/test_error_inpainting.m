@@ -5,7 +5,7 @@ addpath('../src/ipsum');
 % Image names : 
 %       ./src/lena.gif
 %       ./src/baboon.gif
-%% Loading the image.
+% Loading the image.
 [A_orig,cmap] = imread('../src/lena.gif');
 A = double(A_orig);
 colormap(cmap)
@@ -58,7 +58,7 @@ image(A_dist);
 
 mode = 'per';       % 'per' or 'sym'
 maxit = 50;
-thres = {'soft','hard','smooth'};     % 'soft', 'hard' or 'smooth'
+thres = {'soft','hard'};     % 'soft', 'hard' or 'smooth'
 wname = {'db5'};    % Type of wavelet: bior4.4,haar,db1,db2
 delta = 10.^linspace(-2,4,30); % delta's
 Nb_levels = 10;     % Nb of resolution levels.
@@ -89,7 +89,7 @@ ylabel('relative error (Frobenius)', 'Fontsize', 18);
 title('norm(A\_inpainted - A\_orig) / norm(A\_orig)')
 %axis([0 xmax ymin 1])
 set(gca,'FontSize',15)
-legend(legendInfo, 'Location','southwest','Fontsize', 15)
+legend(legendInfo, 'Location','southwest','Fontsize', 18)
 hold off
 
 %% 
