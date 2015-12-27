@@ -23,9 +23,7 @@ wname = 'db2'; % 'db4', 'haar'
 Nb_levels = 5;
 mode = 'per';
 thres = 'smooth';
-sigma=0.1
-
-
+sigma=0.1;
 
 An =A;
 

@@ -35,8 +35,6 @@ er = zeros(3,numel(Trs));
 
 i=1;
 
-
-
 j=1;
 for thresH=1:3
 i=1;

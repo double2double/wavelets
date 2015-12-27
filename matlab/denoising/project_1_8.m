@@ -23,7 +23,7 @@ wname = 'db6'; % 'db4', 'haar'
 Nb_levels = 5;
 mode = 'per';
 thres = 'smooth';
-sigma=0.1
+sigma=0.2;
 
 
 
@@ -41,13 +41,19 @@ costFun = @(T) -snr_den(An,A,Nb_levels,wname,@(x) SmootThresh(x,T));
 y = den_wst2(An,Nb_levels,wname,@(x) SmootThresh(x,a));
 
 %%
+An_im = uint8(An*sqrt(A_var)+A_mean);
+y_im = uint8(y*sqrt(A_var)+A_mean);
+
+
 
 colormap(cmap);
 subplot(1,2,1)
-image(An*sqrt(A_var)+A_mean)
+image(An_im)
+imwrite(An_im,'plot/redundant_noise.png')
 title(num2str(snr_image(A,An)))
 subplot(1,2,2)
-image(y*sqrt(A_var)+A_mean)
+image(y_im)
+imwrite(y_im,'plot/redundant_fixed.png')
 
 title([num2str(-b)]);
 
