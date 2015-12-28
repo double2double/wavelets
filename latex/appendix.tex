@@ -1,0 +1,31 @@
+
+
+
+\begin{appendices}
+
+In de appendix bevind zich een deel van de code die gebruikt werd voor het bekomen van bovenstaande resultaten.
+De bijgevoegde code is tot een minimum gehouden, enkel de gebruikte algoritme werden toegevoegd en een script om telkens hun gebruik te illustreren.
+Het volledige project, inclusief de matlab bestanden om elk van bovenstaande resultaten te genereren kan gevonden worden op \href{https://github.com/double2double/wavelets}{https://github.com/double2double/wavelets}
+
+
+
+
+\section*{Matlab Code}
+
+
+\subsection*{Code voor ruisreductie}
+
+\lstinputlisting{../src/matlab/den_image.m}
+\subsubsection*{Voorbeeld code voor gebruik van denoising.}
+In het onderstaande script wordt aan de hand van \verb|fminunc| de optimale waarden voor de therhold waarden bepaald.
+De cost functie die wordt gebruikt is de euclidische afstand tussen de originele en de gefilterde afbeelding.
+\lstinputlisting{../src/matlab/example_denoising.m}
+
+\subsection*{Code voor inpainting}
+\lstinputlisting{../src/matlab/inpainting_fun.m}
+\subsection*{Voorbeeld code voor gebruik van inpainting.}
+In onderstaand script word een afbeelding ingelezen en beschadigd met witte ruis. Nadien word het inpainting algoritme gebruikt om de ontbrekende pixelwaarden te schatten.
+\lstinputlisting{../src/matlab/example_inpainting.m}
+
+
+\end{appendices}

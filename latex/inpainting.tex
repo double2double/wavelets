@@ -8,40 +8,39 @@ In figuur \ref{fig:matti_fig_1} wordt het algoritme ge\"{i}llustreerd met versch
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{../src/inpainting/lena_block}
-        \caption{Foto van Lena met vierkante blokjes pixels verwijderd (zwart gemaakt). }
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/peppers_broke}
+        \caption{Foto van pepers met vierkante blokjes pixels verwijderd (zwart gemaakt). }
         \label{fig:matti_fig_1a}
     \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{../src/inpainting/lena_blok_painted_1}
-        \caption{Foto \ref{fig:matti_fig_1a} ingekleurd. \\ \ \\}
+    ~
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/peppers_fixed}
+        \caption{Reconstructie van pepers foto aan de hand van inpainting. \\ }
         \label{fig:matti_fig_1b}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{../src/inpainting/baboon_random_noise_1}
-        \caption{Foto van aap met ongeveer 70 procent van de pixels verwijderd (zwart gemaakt). }
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/inpainting/baboon_random_broke_1}
+        \caption{Foto van een baviaan met ongeveer 70 procent van de pixels verwijderd (zwart gemaakt). }
         \label{fig:matti_fig_1c}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/baboon_random_fixed_1}
-        \caption{Foto \ref{fig:matti_fig_1c} ingekleurd. \\ \ \\}
+        \caption{Reconstructie van de baviaan aan de hand van inpainting. \\ }
         \label{fig:matti_fig_1d}
     \end{subfigure}
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/lena_letters_broke_1}
-        \caption{Foto van lena overschreven met tekst. }
+        \caption{Foto van lena overschreven met tekst. (zwart gemaakt)}
         \label{fig:matti_fig_1e}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/lena_letters_fixed_1}
-        \caption{Foto \ref{fig:matti_fig_1e} ingekleurd.}
+        \caption{Reconstructie van lena aan de hand van inpainting. }
         \label{fig:matti_fig_1f}
     \end{subfigure}
     \caption{Resultaten van het 'Inpainting' algoritme. Instellingen algoritme: wavelet: 'db5', level $N = 10$, soft thresholding, threshold parameter $\delta = 10$, 200 iteraties.}\label{fig:matti_fig_1}
@@ -58,14 +57,14 @@ Het 'inpainting' algoritme kan gebruikt worden op verschillende manieren. Zo zij
 
 \begin{figure}[!]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/lena_soft_2}
         \caption{ \textbf{Soft thresholding ($\mathbf{\delta = 10 }$)}.}
         \label{fig:matti_soft_2}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/lena_hard_2}
         \caption{ \textbf{Hard thresholding ($\mathbf{\delta = 100 }$)}.}
         \label{fig:matti_hard_2}
@@ -94,14 +93,14 @@ Het is duidelijk dat het vinden van de optimale threshold parameter $\delta$ nie
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/lena_failed_4}
         \caption{ \textbf{Hard thresholding} met te lage waarde van $\mathbf{\delta = 10 }$ . (volgens figuur \ref{fig:matti_error_plot_3})}
         \label{fig:matti_failed_4}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/lena_optimal_4}
         \caption{\textbf{Hard thresholding} met de optimale waarde van $\mathbf{\delta = 1000 }$ . (volgens figuur \ref{fig:matti_error_plot_3})}
         \label{fig:matti_optimal_4}
@@ -126,38 +125,38 @@ In dit hoofdstuk zal kort het verschil in de resultaten tussen verschillende typ
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_wt_haar}
-        \caption{\textbf{Non-redundant Haar wavelet, \\ SNR = $\mathbf{15.96}$} }
+        \caption{Non-redundant Haar wavelet, \\ SNR = 15.96 }
         \label{fig:matti_fig_wt_haar}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_rwt_haar}
         \caption{\textbf{Redundant Haar wavelet, \\ SNR = $\mathbf{18.15}$} }
         \label{fig:matti_fig_rwt_haar}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_wt_db5}
         \caption{\textbf{Non-redundant Daubechies (db5) wavelet,  SNR = $\mathbf{17.97}$} }
         \label{fig:matti_fig_wt_db5}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_rwt_db5}
         \caption{\textbf{ Redundant Daubechies (db5) wavelet, SNR = $\mathbf{19.61}$} }
         \label{fig:matti_fig_rwt_db5}
     \end{subfigure}
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_wt_bior33}
         \caption{\textbf{ Non-redundant CDF (bior3.3) wavelet, SNR = $\mathbf{10.93}$} }
         \label{fig:matti_fig_wt_bior33}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_rwt_bior33}
         \caption{\textbf{ Redundant CDF (bior3.3) wavelet, SNR = $\mathbf{20.50}$} }
         \label{fig:matti_fig_rwt_bior33}
@@ -168,40 +167,40 @@ In dit hoofdstuk zal kort het verschil in de resultaten tussen verschillende typ
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_4_haar}
-        \caption{\textbf{Haar wavelet, \\ SNR = $\mathbf{16.19}$} }
+        \caption{Haar wavelet, \\ SNR = 21,37 }
         \label{fig:matti_fig_haar}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_4_db2}
-        \caption{\textbf{Daubechies 'db2' wavelet, \\ SNR = $\mathbf{17.73}$} }
+        \caption{Daubechies 'db2' wavelet, \\ SNR = 23.69 }
         \label{fig:matti_fig_db2}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_4_db6}
-        \caption{\textbf{Daubechies 'db6' wavelet, \\ SNR = $\mathbf{18.26}$} }
+        \caption{Daubechies 'db6' wavelet, \\ SNR = 24.30 }
         \label{fig:matti_fig_db6}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_4_bior33}
-        \caption{\textbf{ CDF wavelet 'bior3.3', \\ SNR = $\mathbf{11.92}$} }
+        \caption{ CDF wavelet 'bior3.3', \\ SNR = 19.37 }
         \label{fig:matti_fig_bior33}
     \end{subfigure}
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vrag_2_4_coif4}
-        \caption{\textbf{ Coiflet wavelet 'coif4', \\ SNR = $\mathbf{18.52}$} }
+        \caption{Coiflet wavelet 'coif4', \\ SNR = 24.55 }
         \label{fig:matti_fig_coif4}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_4_sym5}
-        \caption{\textbf{ Symlet wavelet 'sym5', \\ SNR = $\mathbf{18.53}$} }
+        \caption{ Symlet wavelet 'sym5', \\ SNR = 24.37 }
         \label{fig:matti_fig_sym5}
     \end{subfigure}
     \caption{Resultaten van het 'Inpainting' algoritme voor verschillende soorten wavelets. Instellingen algoritme: level $N = 10$, soft thresholding, threshold parameter $\delta = 10$, 200 iteraties.}\label{fig:matti_fig_5}

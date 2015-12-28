@@ -25,9 +25,6 @@ mode = 'per';
 thres = 'smooth';
 sigma=0.2;
 
-
-
-
 An= A +randn(size(A)).*sigma;
 allT=linspace(0,2,100);
 

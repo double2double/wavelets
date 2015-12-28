@@ -1,12 +1,13 @@
 % Loading and destroing a nice picture.
 
-clear all
+clear 
 close all
 addpath('../src/AddTextToImage');
 addpath('../src/ipsum');
 % Image names : 
 %       ./src/lena.gif
 %       ./src/baboon.gif
+%       ./src/peppers.gif
 % Loading the image.
 [A_orig,cmap] = imread('../src/lena.gif');
 A = double(A_orig);
@@ -14,10 +15,8 @@ colormap(cmap)
 image(A_orig);
 
 %% Create some distorsion.
-
-distorsion='text';
+distorsion='random';
 mask = zeros(size(A));
-
 switch distorsion
     case 'random'
         p = 0.7;
@@ -38,6 +37,7 @@ switch distorsion
         [h,w] =size(A);
         i=1;
         while (30*i<h)
+            disp(i)
             text = AddTextToImage(text,ipsum(1+40*(i-1):40*i),[30*(i-1),10]);
             text(text~=1)=0;
             mask = mask.*text;
@@ -49,21 +49,19 @@ switch distorsion
         mask = zeros(size(A));
         mask(1:10:end,:)=1; mask(:,1:10:end)=1;
 end 
-
 A_dist = A.*(1-mask);
-
 image(A_dist)
-
 %% Plotting image + distorsion
 close all
 colormap(cmap)
 image(A_dist);
+imwrite(uint8(A_dist),'plot/dist.png');
 
 %% Settings for the  wavelets.
 
 dwtmode('per');     % Boundary conditions: sym,per
-wname = 'db5';      % Type of wavelet: bior4.4,haar,db1,db2
-Nb_levels = 6;     % Nb of resolution levels.
+wname = 'db2';      % Type of wavelet: bior4.4,haar,db1,db2
+Nb_levels = 10;     % Nb of resolution levels.
 
 % Creating different treshold functions
 SoftThresh  = @(x,T) x.*max( 0, 1-T./max(abs(x),1e-10) );
@@ -93,49 +91,19 @@ switch threshold
         error('thresholding kind unknown')
 end
 
+snr_image = @(A,A_n) 10*log10( norm(A,'fro')^2 / norm(A - A_n,'fro')^2 );
+cost = @(A_n) snr_image(A,A_n);
+
+[result,snr_result] =inpainting_fun(A_dist,mask,Nb_levels,threshold,cost,wname,'per', maxit,0);
 
 
 
-if redundant
-    
-    for n=1:maxit
-        disp(n);
-        SWC = swt2(B_n,Nb_levels,wname);
-        SWC = threshold(SWC);
-        B_np1 = (1-mask).*A_dist+mask.*iswt2(SWC,wname);
-        B_n=B_np1;
-        colormap(cmap)
-        image(B_np1);
-        snr = 10*log10( norm(A,'fro')^2 / norm(A - B_n,'fro')^2 );
-        title(strcat('SNR = ', num2str(snr)), 'Fontsize', 18);
-        pause(0.000001)
-    end
 
-else
-    
-    PsiS = @(f) wavedec2(f,Nb_levels,wname);
-    Psi = @(C,S) waverec2(C,S,wname);
-    
-    for n=1:maxit
-        disp(n);
-        [C,S] = PsiS(B_n);
-        C = threshold(C);
-        B_np1 = (1-mask).*A_dist+mask.*Psi(C,S);
-        B_n=B_np1;
-        colormap(cmap)
-        image(B_np1);
-        snr = 10*log10( norm(A,'fro')^2 / norm(A - B_n,'fro')^2 );
-        title(strcat('SNR = ', num2str(snr)), 'Fontsize', 18);
-        pause(0.000001)
-    end
-end 
-    
+%%
 
-
-
-%% Outputting the results
-imwrite(A_dist,cmap,'lena_broke.gif')
-imwrite(B_np1,cmap,'lena_fixed.gif')
+% Outputting the results
+imwrite(uint8(A_dist),cmap,'plot/lena_broke.png')
+imwrite(uint8(B_np1),cmap,'plot/lena_fixed.png')
 
 
 
