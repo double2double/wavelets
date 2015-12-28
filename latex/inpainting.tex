@@ -3,7 +3,7 @@
 In dit hoofdstuk zullen we wavelets gebruiken om ontbrekende regio's in foto's in te kleuren. Deze methode wordt gebruikt om beschadigde foto's te reconstrueren. De schade op de foto wordt gemodelleerd met pixel waarden in de foto die verdwenen zijn. Om de verdwenen regio's in te kleuren wordt de iteratieve methode gebruikt die beschreven staat in de opgave. We hebben dit algoritme ge\"{i}mplementeerd in Matlab met behulp van de Wavelet toolbox. Hierbij nemen we een bepaalde foto en verwijderen we de pixels in bepaalde regio's. Het algoritme probeert dan de verdwenen regio's in te kleuren. 
 \newline
 \newline
-In figuur \ref{fig:matti_fig_1} wordt het algoritme ge\"{i}llustreerd met verschillende soorten regio's van pixels die verwijderd zijn. In figure \ref{fig:matti_fig_1a} zijn er blokken pixels verwijderd, in figuur \ref{fig:matti_fig_1c} zijn er random pixels verwijderd en in figuur \ref{fig:matti_fig_1e} is de figuur overschreven met tekst. De resultaten van het 'inpainting' algoritme staan er steeds naast. Het algoritme geeft op het eerste zicht heel mooie resultaten. Alleen als we de ingekleurde resultaten in detail gaan bekijken merken we dat het niet de originele figuren zijn. Dit is het meest duidelijk bij de figuren die bewerkt zijn met blokken en met tekst.
+In figuur \ref{fig:matti_fig_1} wordt het algoritme ge\"{i}llustreerd met verschillende soorten regio's van pixels die verwijderd zijn. In figure \ref{fig:matti_fig_1a} zijn er blokken pixels verwijderd, in figuur \ref{fig:matti_fig_1c} zijn er random pixels verwijderd en in figuur \ref{fig:matti_fig_1e} is de figuur overschreven met tekst. De resultaten van het 'inpainting' algoritme staan er steeds naast. Het algoritme geeft op het eerste zicht heel mooie resultaten. Alleen als we de ingekleurde resultaten in detail gaan bekijken merken we dat het niet de originele figuren zijn. Dit is het meest duidelijk bij de figuur die bewerkt is met blokken.
 
 
 \begin{figure}
@@ -121,44 +121,44 @@ Het enigste nadeel bij redundant wavelet transformaties is dat de rekentijd bij 
 
 \subsection{Wavelet soorten}
 
-In dit hoofdstuk zal kort het verschil in de resultaten tussen verschillende type wavelets besproken worden. In figuur \ref{fig:matti_fig_5} zijn de 'inpainting' resultaten getoond voor 6 verschillende soorten wavelets. De SNR waarden zijn er steeds bij vermeld. In figuur \ref{fig:matti_fig_haar} is de Haar wavelet gebruikt. In deze figuur zijn kleine blokjes te zien, Dit is omdat de Haar wavelet niet geschikt is voor continue overgangen. De corresponderende SNR waarde is $16.19$. De 2 Daubechies wavelets in figuur \ref{fig:matti_fig_db2} en \ref{fig:matti_fig_db6} doen het beter als de haar wavelet. Dit is zowel te zien in de figuur als de SNR waarde. De reden hiervoor is dat Daubechies wavelets beter geschikt zijn voor continue overgangen. In figuur \ref{fig:matti_fig_bior33} is een biorthogonale spline wavelet gebruikt. In deze figuur is een heel slecht resultaat bekomen. De beste resultaten zijn bij de Coiflet en Symlet wavelet in figuur \ref{fig:matti_fig_coif4} en figuur \ref{fig:matti_fig_sym5}.
+In dit hoofdstuk zal kort het verschil in de resultaten tussen verschillende type wavelets besproken worden. In figuur \ref{fig:matti_fig_5} zijn de 'inpainting' resultaten getoond voor 6 verschillende soorten wavelets. De SNR waarden zijn er steeds bij vermeld. In figuur \ref{fig:matti_fig_haar} is de Haar wavelet gebruikt. In deze figuur zijn kleine blokjes te zien, Dit is omdat de Haar wavelet niet geschikt is voor continue overgangen.  De 2 Daubechies wavelets in figuur \ref{fig:matti_fig_db2} en \ref{fig:matti_fig_db6} doen het beter als de haar wavelet. Dit is zowel te zien in de figuur als de SNR waarde. De reden hiervoor is dat Daubechies wavelets beter geschikt zijn voor continue overgangen. In figuur \ref{fig:matti_fig_bior33} is een biorthogonale spline wavelet gebruikt. In deze figuur is een heel slecht resultaat bekomen. De beste resultaten zijn bij de Coiflet en Symlet wavelet in figuur \ref{fig:matti_fig_coif4} en figuur \ref{fig:matti_fig_sym5}.
 
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_wt_haar}
-        \caption{Non-redundant Haar wavelet, \\ SNR = 15.96 }
+        \caption{\textbf{Non-redundant Haar wavelet, \\ SNR = 20.96} }
         \label{fig:matti_fig_wt_haar}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_rwt_haar}
-        \caption{\textbf{Redundant Haar wavelet, \\ SNR = $\mathbf{18.15}$} }
+        \caption{\textbf{Redundant Haar wavelet, \\ SNR = $\mathbf{23.15}$} }
         \label{fig:matti_fig_rwt_haar}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_wt_db5}
-        \caption{\textbf{Non-redundant Daubechies (db5) wavelet,  SNR = $\mathbf{17.97}$} }
+        \caption{\textbf{Non-redundant Daubechies (db5) wavelet,  SNR = $\mathbf{22.97}$} }
         \label{fig:matti_fig_wt_db5}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_rwt_db5}
-        \caption{\textbf{ Redundant Daubechies (db5) wavelet, SNR = $\mathbf{19.61}$} }
+        \caption{\textbf{ Redundant Daubechies (db5) wavelet, SNR = $\mathbf{24.61}$} }
         \label{fig:matti_fig_rwt_db5}
     \end{subfigure}
         \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_wt_bior33}
-        \caption{\textbf{ Non-redundant CDF (bior3.3) wavelet, SNR = $\mathbf{10.93}$} }
+        \caption{\textbf{ Non-redundant CDF (bior3.3) wavelet, SNR = $\mathbf{15.93}$} }
         \label{fig:matti_fig_wt_bior33}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/inpainting/vraag_2_3_rwt_bior33}
-        \caption{\textbf{ Redundant CDF (bior3.3) wavelet, SNR = $\mathbf{20.50}$} }
+        \caption{\textbf{ Redundant CDF (bior3.3) wavelet, SNR = $\mathbf{25.50}$} }
         \label{fig:matti_fig_rwt_bior33}
     \end{subfigure}
     \caption{Resultaten van het 'Inpainting' algoritme voor verschillende soorten wavelets. Instellingen algoritme: level $N = 6$, soft thresholding, threshold parameter $\delta = 10$, 200 iteraties.}\label{fig:matti_fig_rwt}
