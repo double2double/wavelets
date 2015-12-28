@@ -4,24 +4,24 @@
 
 Bij wijze van opwarming starten we met de wavelet decompositie van de functie $ \mathbb{R}  \to \mathbb{R}: x \mapsto \exp(x)$. 
 Dit is een gladde functie die bovendien analytisch is. 
-Voor onze analyse werden de de exponenti\"ele functie equidistant bemonster op het interval $ [0,1] $ met $ 256 $ punten.
-Deze data werd nadien geanalyseerd met behulp van 3 verschillende wavelet transformaties, de haar wavelet, de daubechie wavelet van orde 4 en de daubechie wavelet van orde 45.
+Voor onze analyse werd de exponenti\"ele functie equidistant bemonster op het interval $ [0,1] $ met $ 256 $ punten.
+Deze data werd nadien geanalyseerd met behulp van 3 verschillende wavelet transformaties, de haar wavelet, de daubechie wavelet van orde 2 en de daubechie wavelet van orde 45.
 Elk van deze transformaties werd uitgevoerd tot niveau 4, dit maakt dus dat het signaal zal worden opgesplitst ten opzichte van 5 verschillende basissen.  
 De resultaten van dit experiment zijn samen gevat in Figuur \ref{fig:exp_noNoise}.
 In de linker kolom van de figuur zijn de coefficienten van de transformatie uitgezet.
 In de rechter kolom is telkens de benadering van de exponenti\"ele functie in elke basis uitgezet.
 Hierbij is de onderste curve de benadering in $ W_1 $, die daar boven de benadering in $ W_2 $ en zo voort.
-De bovenste grafiek is dan de benardering van de exponenti\"ele functie in de ruimte $ V_4 $.
+De bovenste grafiek is dan de benadering van de exponenti\"ele functie in de ruimte $ V_4 $.
 
 Wat meteen opvalt is dat de coefficienten van de lage frequenties (links in de coefficienten vector) het grootst zijn.
 Dit is volledig volgens de verwachting, de exponentiele funtie is een gladde functie en bevat dus voornamelijk lage frequenties.
 Een tweede bemerking is dat voor de hogere orde wavelets de coefficienten aan de randen groter worden.
 Dit is het gevolg van het breder worden van de wavelet, hierdoor zal het eind effect verstrekt worden.
 
-Vervolgens kunnen we zien naar de kwaliteit van de benaderingen in de opeen volgde vector ruimtes, zoals gegeven in de rechter kolom.
-Hier is het duidelijk dat een hogere orde benadering niet meteen een snellere convergentie geeft.
+Vervolgens kijken we naar de convergentie van de wavelet benadering .
+Hier is het duidelijk dat een hogere orde benadering niet meteen een snellere convergentie oplevert.
 Dit is opnieuw het gevolg van het bredere karakter van de hogere orde wavelets.
-Over het algemeen is de beste benadering bekomen door de daubechie wavelte van orde 2.
+Over het algemeen is de beste benadering bekomen door de daubechie wavelet van orde 2.
 Het eind effect is het kleinste voor de haar wavelet.
 
 \subsection{Academisch voorbeeld met ruis}
@@ -30,19 +30,21 @@ In een tweede test word er ruis toegevoegd aan de gladde functie exponenti\"ele 
 Deze ruis is witte ruis met een standaard afwijking van 0.1.
 Om de invloed van de ruis op de wavelet coefficienten duidelijk te maken zijn de coefficienten weergegeven in 
 figuur \ref{fig:exp_Noise_noise_10}.
-De invloed van de witte ruis in het tijddomein geeft  een verstoring van witte ruis op de coefficienten van de versrchillende wavelet transformaties.
+De invloed van de witte ruis in het tijddomein geeft  een verstoring van witte ruis op de coefficienten van de verschillende wavelet transformaties.
 De verstoring kan makkelijk worden verwijderd aan de hand van een treshold waarder te gebruiken.
 Deze methode is besproken in de opgaven en zal dus niet verder worden toegelicht.
 Enkel de resultaten en toepassingen zullen worden besproken.
 
-De fout als functie van de threshold waarden is weergeven in figuur \ref{fig:error_exp_haar_10} tot \ref{fig:error_exp_db45_10}.
+De fout als functie van de threshold waarden is weergeven in figuur \ref{fig:error_exp_10}.
+Hierbij zijn drie verschillende wavelet transformaties gekozen, de haar wavelet, daubechie 2 en daubechie 45.
+Voor de threshold functies hebben we gekozen om drie verschillende functie voorschriften te bestuderen, een zacht, harde en continue threshold functie.
+Een plot van deze drie threshold functies is gegeven in Figuur \ref{fig:Threshold}.
 Uit deze drie figuren is het duidelijk dat er een fundamenteel verschil optreed tussen de zachte threshold functie en de twee andere.
 De verklaring hiervoor is dat de zachte threshold functie elke waarden zal wijzigen, zelfs de waarden ver boven de threshold.
-Om dit te illustreren zijn de drie threshold functies weergegeven in Figuur \ref{fig:Threshold}.
+Dit kan men inzien door de drie threshold functies met elkaar te vergelijken in Figuur \ref{fig:Threshold}.
 
 Om dit deel af te sluiten is in figuur \ref{fig:Optimale_ruisReductie} de optimale ruis reductie weergegeven.
-Deze reducties maakt gebruik van daubechie wavelet van orde 2 en een threshold waarden van 0.4 met  de zachte treshold functie.
-
+Deze reducties maakt gebruik van daubechie wavelet van orde 2 en een threshold waarden van 0.4 met  de gladde treshold functie.
 
 \subsection{Tussenliggende waarden bepalen}
 
@@ -50,49 +52,43 @@ De tussenliggende waarden kunnen op een aantal manieren worden bepaald.
 Een eerste is aan de hand van een interpolatie die gebruik maakt van de gefilterde punten.
 
 Het is echter ook mogelijk om de tussenliggende waarden rechtstreeks te bepalen aan de hand van de wavelet coefficienten.
-Dit is enkel mogelijk wanneer men werkt met een continue wavelet transformatie.
-De details van deze wavelet interpolatie zijn hier niet volledig uitgewerkt maar eenmaal de functie beschrijving van de continue wavelet gekend is en de wavelet co\"erdinaten zijn bepaald is het bedenken van een interpolatie schema niet veel werk meer.
+Dit is enkel mogelijk wanneer men werkt met een continue wavelet transformatie zoals bijvoorbeeld de Meyer wavelet.
 
+De details van deze wavelet interpolatie zijn hier niet volledig uitgewerkt maar eenmaal de functie beschrijving van de continue wavelet gekend is en de wavelet co\"erdinaten zijn bepaald is het bedenken van een interpolatie schema niet veel werk meer.
 
 \begin{figure}
     \centering
      \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_noNoise/coef_exp_haar_4}
             \caption{Coefficienten voor haar wavelet}
-            \label{fig:tiger}
         \end{subfigure}
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
         %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_noNoise/MRA_exp_haar_4}
             \caption{Reconstructie voor haar wavelet}
-            \label{fig:mouse}
         \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_noNoise/coef_exp_db2_4}
         \caption{Coefficienten voor db2 wavelet}
-        \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_noNoise/MRA_exp_db2_4}
         \caption{Reconstructie voor db2 wavelet}
-        \label{fig:mouse}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_noNoise/coef_exp_db45_4}
         \caption{Coefficienten voor db45 wavelet}
-        \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_noNoise/MRA_exp_db45_4}
         \caption{Reconstructie voor db45 wavelet}
-        \label{fig:mouse}
     \end{subfigure}
-    \caption{Coefficienten van wavelet transformatie van de exponenti\"ele functie voor verschillende wavelets samen met de benadering in elke vectroruimte. Elke transformatie is tot niveau 4 uitgevoerd. De stippellijnen in de linker figuur markeren de verschillende co\"ordinaten vectoren aan te duiden.}\label{fig:exp_noNoise}
+    \caption{Coefficienten van wavelet transformatie van de exponenti\"ele functie voor verschillende wavelets samen met de benadering in elke vectroruimte. Elke transformatie is tot niveau 4 uitgevoerd. De stippellijnen in de linker figuur markeren de verschillende co\"ordinaten vectoren.}\label{fig:exp_noNoise}
 \end{figure}
 
 
@@ -102,40 +98,34 @@ De details van deze wavelet interpolatie zijn hier niet volledig uitgewerkt maar
      \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_Noise/coef_exp_haar_4_noise_10}
             \caption{Coefficienten voor haar wavelet}
-            \label{fig:tiger}
         \end{subfigure}
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
         %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_Noise/MRA_exp_haar_4_noise_10}
             \caption{Reconstructie voor haar wavelet}
-            \label{fig:mouse}
         \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_Noise/coef_exp_db2_4_noise_10}
         \caption{Coefficienten voor db2 wavelet}
-        \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_Noise/MRA_exp_db2_4_noise_10}
         \caption{Reconstructie voor db2 wavelet}
-        \label{fig:mouse}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_Noise/coef_exp_db45_4_noise_10}
         \caption{Coefficienten voor db45 wavelet}
-        \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_Noise/MRA_exp_db45_4_noise_10}
         \caption{Reconstructie voor db45 wavelet}
-        \label{fig:mouse}
     \end{subfigure}
-    \caption{Coefficienten van wavelet transformatie van de ruizige exponenti\"ele functie voor verschillende wavelets samen met de benadering in elke vectroruimte. Elke transformatie is tot niveau 4 uitgevoerd. De stippellijnen in de linker figuur markeren de verschillende co\"ordinaten vectoren aan te duiden.}\label{fig:exp_Noise_noise_10}
+    \caption{Coefficienten van wavelet transformatie van de ruizige exponenti\"ele functie voor verschillende wavelets samen met de benadering in elke vectroruimte. Elke transformatie is tot niveau 4 uitgevoerd. De stippellijnen in de linker figuur markeren de verschillende co\"ordinaten vectoren.}\label{fig:exp_Noise_noise_10}
 \end{figure}
 
 
@@ -143,24 +133,25 @@ De details van deze wavelet interpolatie zijn hier niet volledig uitgewerkt maar
 
 
 \begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/error_exp_haar_10}
-\caption{Log van de benaderingsfout in functie van de threshold voor drie verschillende threshold functies. De benadering werd uitgevoerd met een haar wavelet tot niveau 6.}
-\label{fig:error_exp_haar_10}
+    \centering
+     \begin{subfigure}[b]{0.4\textwidth}
+            \includegraphics[width=\textwidth]{../src/denoising/error_1d/error_exp_haar_10}
+            \caption{Fout voor \textit{haar} wavelet}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+        %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.4\textwidth}
+            \includegraphics[width=\textwidth]{../src/denoising/error_1d/error_exp_db2_10}
+            \caption{Fout voor \textit{db2} wavelet}
+        \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/error_1d/error_exp_db45_10}
+        \caption{Fout voor \textit{db45} wavelet}
+    \end{subfigure}
+    \caption{Log van de benaderingsfout in functie van de threshold voor drie verschillende threshold functies. De benadering werd uitgevoerd met een haar wavelet tot niveau 6.}\label{fig:error_exp_10}
 \end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/error_exp_db2_10}
-\caption{Log van de benaderingsfout in functie van de threshold voor drie verschillende threshold functies. De benadering werd uitgevoerd met een daubechie 2 wavelet tot niveau 6.}
-\label{fig:error_exp_db2_10}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/error_exp_db45_10}
-\caption{Log van de benaderingsfout voor de exponenti\"ele functie. in functie van de threshold voor drie verschillende threshold functies.  De benadering werd uitgevoerd met een daubechie 45 wavelet tot niveau 6.
-}
-\label{fig:error_exp_db45_10}
-\end{figure}
+
+
 
 
 \begin{figure}
@@ -184,13 +175,13 @@ De details van deze wavelet interpolatie zijn hier niet volledig uitgewerkt maar
 
 \subsection{Moving on to images}
 
-Voor de ruis experimenten op afbeelding is er steeds met een zelfde ruis gewerkt.
+Voor de ruis experimenten op afbeelding is er steeds met een zelfde ruis bron gewerkt.
 De ruis was gaussische verdeeld met een standaard afwijking van 0.1.
 Verder werd de ingelezen afbeelding eerst genormaliseerd.
-Op deze manier is het eenvoudiger resultaten tussen verschillende afbeeldingen te vergelijken en een normalisatie komt ook meestal ten goede van de conditionering.
+Op deze manier is het eenvoudiger resultaten tussen verschillende afbeeldingen te vergelijken en een normalisatie komt ook meestal ten goede van de conditionering van het probleem.
+
 
 \subsubsection{Implementatie van ruis reductie algoritme}
-
 
 De eenvoudigste manier voor ruis uit een afbeelding te halen aan de hand van een wavelet transformatie is door exact de zelfde strategie toe te passen als in het 1 dimensionaal geval.
 Dit houd in dat eerst de wavelet coefficienten worden bepaald voor de ruisige afbeelding.
@@ -204,10 +195,12 @@ Voor een goed beeld te krijgen van de invloed van de threshold functie op de rui
 Voor elke threshold functie werden er een aantal threshold parameters getest.
 Een voorbeeld resultaat van zo een test is te zien in Figuur \ref{fig:snr_image_bior6}.
 In deze figuur is de SNR waarden geplot voor  verschillende threshold waarden en voor verschillende threshold functies.
-Uit deze afbeelding is af te leiden dat zachte threshold functie het beste resultaat opleverd voor de ruisreductie.
+Uit deze afbeelding is af te leiden dat gladde threshold functie het beste resultaat oplevert voor de ruisreductie.
 In Figuur \ref{fig:snr_image_bior6} werd gebruik gemaakt van de biorthogonale wavelet van orde 6,8.
 Voor de meeste andere transformaties werden gelijkaardige resultaten bekomen.
-Uit alle tests besluiten  we dat de zachte threshold functie de beste ruisreductie oplevert.
+Uit alle tests besluiten  we dat de gladde threshold functie de beste ruisreductie oplevert.
+Het gladde karakter van de threshold functie heeft ook als gevolg dat de fout op de transformatie een gladde functie van de threshold parameter is.
+Dit is gewenste eigenschap wanneer men gebruik wil maken van optimalisatie algoritmes die gebruik maken van de afgeleide van de kost functie.
 
 
 \begin{figure}
@@ -220,14 +213,14 @@ Uit alle tests besluiten  we dat de zachte threshold functie de beste ruisreduct
 
 \subsubsection{Optimale threshold bepalen(met vals spelen)}
 
-Uit het vorige experiment hebben we kunnen besluiten dat in alle gevallen de zachte threshold functie de beste denoising geeft.
-Een tweede resultaat dat opviel was dat de SNR curves steeds gladde curves bleken te zijn voor de zachte threshold functie.
+Uit het vorige experiment hebben we kunnen besluiten dat in alle gevallen de gladde threshold functie de beste ruis reductie  oplevert.
+Een tweede resultaat dat opviel was dat de SNR curves steeds gladde curves bleken te zijn voor de gladde threshold functie.
 Door het gladde karakter van deze curve is het gebruik van een optimalisatie routine voor de SNR costfunctie makkelijk te implementeren.
 De cost functie is als volgt gedefini\"eerd in matlab.
 \begin{verbatim}
 costFun = @(T) -snr_den(An,A,Nb_levels,wname,@(x) SmootThresh(x,T));
 \end{verbatim}
-Dit is een functie in de parameter \verb|T|, dit is de waarden van de threshold.
+Dit is een functie in de parameter \verb|T|, de waarden van de threshold.
 \verb|An | is de ruizige afbeelding, \verb|A| de originele afbeelding, \verb|Nb_levels| het aantal niveaus van de transformatie, \verb|wname| de naam van de wavelte transformatie en \verb|@(x) SmootThresh(x,T)| de threshold functie.
 Merk op dat voor de berekening van de SNR waarden de originele afbeelding moet gekend zijn (Vals spelen).
 Door gebruik te maken van de optimalisatie routine \verb|fmincon| kan de optimale waarden voor de threshold snel worden gevonden.
@@ -236,6 +229,7 @@ Door gebruik te maken van de optimalisatie routine \verb|fmincon| kan de optimal
 \end{verbatim}
 Deze methode convergeerde steeds, soms was de convergentie naar een negatieve waarde van de threshold.
 Dit is geen probleem aangezien de threshold functie symmetrisch is in de threshold parameter.
+Een beknopte uitwerking van dit algoritme is gegeven in de appendix.
 
 Een voorbeeld resultaat van de optimale ruis onderdrukking is gegeven in figuur \ref{fig:optimaleRuisBIOR}.
 In deze figuur is opnieuw de biorthogonale wavelet van orde 6,8 gebruikt.
@@ -265,7 +259,7 @@ Het kiezen van de threshold parameter door gebruik te maken van de originele afb
 Om dit op te lossen zijn er een aantal criteria die de kwaliteit van de benadering kunnen schatten zonder gebruik te maken van de originele afbeelding.
 Een van deze criteria is het SURE  criteria, dat beschreven staat in de opgaven.
 In figuur \ref{fig:kost_crit}  worden de twee kost criteria met elkaar vergeleken.
-Het is duidelijk dat SURE kost functie steeds lagere waarden voor de optimale threshold waarden geeft.
+Het is duidelijk dat SURE kost functie steeds lagere waarden voor de optimale threshold geeft.
 Een tweede eigenschap die opvalt is dat het minima van de SURE kostfunctie vlakker is dan die van de SNR kostfunctie.
 Dit wijst er op dat de SURE schatter minder gevoel is dan de SNR schatter voor de optimale waarde.
 De getallen op de $ y$-as hebben kunnen niet onderling worden vergeleken met elkaar omdat er telkens een andere schaling wordt gebruikt.
@@ -277,20 +271,17 @@ Wanneer de SNR zelf werd geoptimaliseerd werd er een SNR van 25.02 dB gevonden.
 Beide gefilterde afbeeldingen zijn weergegeven in Figuur \ref{fig:sure_snr}.
 
 
-
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_cost_snr}
         \caption{SNR kostfunctie}
-        \label{fig:roster_denoising}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_cost}
         \caption{SURE kost functie}
-        \label{fig:kost_crit_b}
     \end{subfigure}
     \caption{Vergelijking van twee kost criteria. In de linker figuur werd de benaderingsfout bepaald als de SNR ten opzichte van de originele afbeelding. In de rechter plot werd de kwaliteit van de benadering bepaald aan de hand van het SURE criteria. De SURE benadering geeft telkens kleiner waarden voor de optimale threshold parameter, bovendien is het minima veel vlakker. Dit wijst op de lage gevoeligheid voor het bepalen van de optimale parameter.}\label{fig:kost_crit}
 \end{figure}
@@ -302,14 +293,12 @@ Beide gefilterde afbeeldingen zijn weergegeven in Figuur \ref{fig:sure_snr}.
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_SNR}
         \caption{Optimale ruisreductie men SURE criteria, SNR=22.51 dB }
-        \label{fig:roster_denoising}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_SURE}
         \caption{Optimale ruisreductie men SNR criteria, SNR=25.02 dB}
-        \label{fig:roster_inpainting}
     \end{subfigure}
     \caption{Vergelijking van ruis reductie op basis van de twee verschillende kost criteria. Voor de wavelet transformatie is er gebruik gemaakt van de daubechie wavelet van orde 6 tot niveau 5. Het optimum is bepaald door middel van de optimalisatie routine fminunc.}\label{fig:sure_snr}
 \end{figure}
@@ -319,12 +308,7 @@ Beide gefilterde afbeeldingen zijn weergegeven in Figuur \ref{fig:sure_snr}.
 Wanneer de keuze voorhanden is is het aangeraden om steeds de SNR kostfunctie te gebruiken voor een optimale threshold waarden te bepalen.
 Dit is echter niet altijd mogelijk. In dit geval is het SURE criteria een goed alternatief.
 
-
-
-
-
 \subsection{Redundante wavelet transformatie}
-
 
 De redundante wavelet transformatie voor twee dimensionale foto's kan gebruikt worden via het commando \verb|swt2|.
 Dit geeft als resultaat een drie dimensionale array terug met dimensies $ H\times L \times N $, waarbij $ H, L $ respectievelijk de hoogt in pixels en de breedte in pixels van de foto is.
@@ -335,14 +319,14 @@ Y = iswt2(thresHold(swc),wname);
 \end{verbatim}
 Nadien kan de fout tussen de originele afbeelding $ X $ en de gereconstrueerde foto $ Y $ worden bepaald zoals voorheen.
 Dit kan nadien opnieuw worden gebruikt in een optimalisatie routine.
-
+Een meer gedetailleerde uitwerking van het algoritme is terug te vinden in de appendix.
 \subsubsection{Resultaten}
 
 Het beste resultaat voor de denoising van afbeeldingen werd bekomen met de redundante wavelet transformatie.
 Als kost functie werd de afstand tot de originele afbeelding genomen.
-Als threshold functie werd er gekozen voor de zachte threshold.
-Hierbij werd de threshold waarden bepaald met behulp van \verb|fmincon|.
-Op deze manier werd er een SNR van maximaal 13.85 bereikt waarbij de origine beschadigde foto een SNR van 8.30 dB had.
+Als threshold functie werd er gekozen voor de gladde threshold.
+Hierbij werd de threshold waarden bepaald met behulp van \verb|fminunc|.
+Op deze manier werd er een SNR van maximaal 27.73 bereikt waarbij de origine beschadigde foto een SNR van 16.60 dB had.
 Dit resultaat is weergegeven in Figuur \ref{fig:redundant}
 
 
@@ -367,11 +351,11 @@ Dit resultaat is weergegeven in Figuur \ref{fig:redundant}
 \subsubsection{Rooster ruis}
 
 
-Als afsluiter van het deel over ruisreductie nemen stappen we af van de gaussische ruis en voegen we een gestructureerde ruis toe aan de afbeelding.
+Als afsluiter van het deel over ruisreductie stappen we af van de gaussische ruis en voegen we een gestructureerde verstoring (ruis) toe aan de afbeelding.
 Deze gestructureerde ruis is in de vorm van een rooster dat over de afbeelding wordt geplaatste en bevat dus veel structuur.
 Voor de eenvoudige implementatie van het ruisreductie algoritme is het herkennen van deze rooster structuur als overbodig niet mogelijk.
 De gebruiker moet meer informatie meegeven over dit soort van ruis.
-De resultaten van een poging voor de het rooster te verwijderen zijn gegeven in Figuur \ref{fig:rooster}.
+Het resultaat van het ruisreductie algoritme voor dit probleem is gegevin in Figuur \ref{fig:rooster}.
 In de linker figuur is het klassieke ruisreductie algoritme gebruikt, in de rechter figuur is een inpainting gebruikt (volgend hoofdstuk).
 Het verschil tussen beiden resultaten is groot.
 Dit is hoofdzakelijk het gevolg van de beschikbare informatie.
