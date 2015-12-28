@@ -44,94 +44,99 @@ Om dit deel af te sluiten is in figuur \ref{fig:Optimale_ruisReductie} de optima
 Deze reducties maakt gebruik van daubechie wavelet van orde 2 en een threshold waarden van 0.4 met  de zachte treshold functie.
 
 
-\paragraph{Tussenliggende waarden bepalen}
+\subsection{Tussenliggende waarden bepalen}
 
-\dots Iets met de basis wavelet bepalen in het punt  en zo kan je het doen. Ik denk dat dit iets te maken heeft met een wavelet interpolatie.
+De tussenliggende waarden kunnen op een aantal manieren worden bepaald.
+Een eerste is aan de hand van een interpolatie die gebruik maakt van de gefilterde punten.
+
+Het is echter ook mogelijk om de tussenliggende waarden rechtstreeks te bepalen aan de hand van de wavelet coefficienten.
+Dit is enkel mogelijk wanneer men werkt met een continue wavelet transformatie.
+De details van deze wavelet interpolatie zijn hier niet volledig uitgewerkt maar eenmaal de functie beschrijving van de continue wavelet gekend is en de wavelet co\"erdinaten zijn bepaald is het bedenken van een interpolatie schema niet veel werk meer.
 
 
 \begin{figure}
     \centering
-     \begin{subfigure}[b]{0.45\textwidth}
+     \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_noNoise/coef_exp_haar_4}
-            \caption{Met tekst beschadiging}
+            \caption{Coefficienten voor haar wavelet}
             \label{fig:tiger}
         \end{subfigure}
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
         %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_noNoise/MRA_exp_haar_4}
-            \caption{Na de reconstructie}
+            \caption{Reconstructie voor haar wavelet}
             \label{fig:mouse}
         \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_noNoise/coef_exp_db2_4}
-        \caption{Met tekst beschadiging}
+        \caption{Coefficienten voor db2 wavelet}
         \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_noNoise/MRA_exp_db2_4}
-        \caption{Na de reconstructie}
+        \caption{Reconstructie voor db2 wavelet}
         \label{fig:mouse}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_noNoise/coef_exp_db45_4}
-        \caption{Met tekst beschadiging}
+        \caption{Coefficienten voor db45 wavelet}
         \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_noNoise/MRA_exp_db45_4}
-        \caption{Na de reconstructie}
+        \caption{Reconstructie voor db45 wavelet}
         \label{fig:mouse}
     \end{subfigure}
-    \caption{Pictures of lena}\label{fig:exp_noNoise}
+    \caption{Coefficienten van wavelet transformatie van de exponenti\"ele functie voor verschillende wavelets samen met de benadering in elke vectroruimte. Elke transformatie is tot niveau 4 uitgevoerd. De stippellijnen in de linker figuur markeren de verschillende co\"ordinaten vectoren aan te duiden.}\label{fig:exp_noNoise}
 \end{figure}
+
 
 
 \begin{figure}
     \centering
-     \begin{subfigure}[b]{0.45\textwidth}
+     \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_Noise/coef_exp_haar_4_noise_10}
-            \caption{Met tekst beschadiging}
+            \caption{Coefficienten voor haar wavelet}
             \label{fig:tiger}
         \end{subfigure}
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
         %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../src/denoising/haar_Noise/MRA_exp_haar_4_noise_10}
-            \caption{Na de reconstructie}
+            \caption{Reconstructie voor haar wavelet}
             \label{fig:mouse}
         \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_Noise/coef_exp_db2_4_noise_10}
-        \caption{Met tekst beschadiging}
+        \caption{Coefficienten voor db2 wavelet}
         \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db2_Noise/MRA_exp_db2_4_noise_10}
-        \caption{Na de reconstructie}
+        \caption{Reconstructie voor db2 wavelet}
         \label{fig:mouse}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_Noise/coef_exp_db45_4_noise_10}
-        \caption{Met tekst beschadiging}
+        \caption{Coefficienten voor db45 wavelet}
         \label{fig:tiger}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/db45_Noise/MRA_exp_db45_4_noise_10}
-        \caption{Na de reconstructie}
+        \caption{Reconstructie voor db45 wavelet}
         \label{fig:mouse}
     \end{subfigure}
-    \caption{Pictures of lena}\label{fig:exp_Noise_noise_10}
+    \caption{Coefficienten van wavelet transformatie van de ruizige exponenti\"ele functie voor verschillende wavelets samen met de benadering in elke vectroruimte. Elke transformatie is tot niveau 4 uitgevoerd. De stippellijnen in de linker figuur markeren de verschillende co\"ordinaten vectoren aan te duiden.}\label{fig:exp_Noise_noise_10}
 \end{figure}
-
 
 
 
@@ -140,19 +145,20 @@ Deze reducties maakt gebruik van daubechie wavelet van orde 2 en een threshold w
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/error_exp_haar_10}
-\caption{}
+\caption{Log van de benaderingsfout in functie van de threshold voor drie verschillende threshold functies. De benadering werd uitgevoerd met een haar wavelet tot niveau 6.}
 \label{fig:error_exp_haar_10}
 \end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/error_exp_db2_10}
-\caption{}
+\caption{Log van de benaderingsfout in functie van de threshold voor drie verschillende threshold functies. De benadering werd uitgevoerd met een daubechie 2 wavelet tot niveau 6.}
 \label{fig:error_exp_db2_10}
 \end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/error_exp_db45_10}
-\caption{}
+\caption{Log van de benaderingsfout voor de exponenti\"ele functie. in functie van de threshold voor drie verschillende threshold functies.  De benadering werd uitgevoerd met een daubechie 45 wavelet tot niveau 6.
+}
 \label{fig:error_exp_db45_10}
 \end{figure}
 
@@ -160,14 +166,14 @@ Deze reducties maakt gebruik van daubechie wavelet van orde 2 en een threshold w
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/Optimale_ruisReductie}
-\caption{}
+\caption{Optimale ruis reductie van de exponenti\"ele functie. Deze reducties maakt gebruik van daubechie wavelet van orde 2 tot niveau 6 en een threshold waarden van 0.4 met  de zachte treshold functie.}
 \label{fig:Optimale_ruisReductie}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{../src/denoising/error_1d/Threshold}
-\caption{}
+\caption{Plot van de verschillende threshold functies. Het is duidelijk dat de zachte threshold functie elke waarden zal wijzigen. De grote van deze wijziging hang af van de threshold waarden. Deze invloed leid vaak tot mindere goede resultaten van deze threshold functie.}
 \label{fig:Threshold}
 \end{figure}
 
@@ -190,7 +196,7 @@ De eenvoudigste manier voor ruis uit een afbeelding te halen aan de hand van een
 Dit houd in dat eerst de wavelet coefficienten worden bepaald voor de ruisige afbeelding.
 Nadien worden deze coefficienten met een threshold functie op een niet lineaire manier gefilterd.
 De laatste stap is dan de afbeelding reconstrueren aan de hand van de gefilterde coefficienten.
-Een concrete implementatie van dit algoritme is terug te vinden in de \textbf{appendix}.
+Een concrete implementatie van dit algoritme is terug te vinden in de appendix.
 
 \subsubsection{Verschil in threshold functies}
 
@@ -207,7 +213,7 @@ Uit alle tests besluiten  we dat de zachte threshold functie de beste ruisreduct
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{../src/denoising/image/snr_image_bior68_30.pdf}
-\caption{}
+\caption{SNR voor benadering van de afbeelding van lena. Het ruisniveau van de originele afbeelding is weergegeven met de stippellijn. Voor de wavelet transformatie is gebruik gemaakt van de biorthogonale wavelet filter van orde 6 en 8. De filter werd tot niveau 6 berekend. Dit was het beste resultaat dat werd bekomen voor de niet redundante transformatie.}
 \label{fig:snr_image_bior6}
 \end{figure}
 
@@ -237,27 +243,82 @@ In deze figuur is opnieuw de biorthogonale wavelet van orde 6,8 gebruikt.
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/image/lenaNoise_bior68.png}
-        \caption{Met tekst beschadiging}
-        \label{fig:tiger}
+        \caption{Ruizige afbeelding van Lena, deze afbeelding heeft een SNR van 10.45 dB \\}
+        \label{fig:noise_lena}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/image/lenaDen_bior68.png}
-        \caption{Na de reconstructie}
-        \label{fig:mouse}
+        \caption{Gefilterde afbeelding van Lena, deze afbeelding heeft een SNR van 16.49 dB }
+        \label{fig:opt_lena}
     \end{subfigure}
-    \caption{Pictures of lena}\label{fig:optimaleRuisBIOR}
+    \caption{Vergelijking van de ruisige afbeelding met het optimaal gefilterd resultaat. De filtering werd bekomen door gebruik te maken van de gladde threshold functie waarbij de parameter optimaal werd gekozen. De gebruikt wavelet was de biorthogonale wavelet van orde 6 en 8, deze werd gebruikt tot niveau 10.}\label{fig:optimaleRuisBIOR}
 \end{figure}
 
 
 \subsubsection{Optimale threshold bepalen(zonder vals spelen)}
 
+Het kiezen van de threshold parameter door gebruik te maken van de originele afbeelding is niet realistisch.
+Om dit op te lossen zijn er een aantal criteria die de kwaliteit van de benadering kunnen schatten zonder gebruik te maken van de originele afbeelding.
+Een van deze criteria is het SURE  criteria, dat beschreven staat in de opgaven.
+In figuur \ref{fig:kost_crit}  worden de twee kost criteria met elkaar vergeleken.
+Het is duidelijk dat SURE kost functie steeds lagere waarden voor de optimale threshold waarden geeft.
+Een tweede eigenschap die opvalt is dat het minima van de SURE kostfunctie vlakker is dan die van de SNR kostfunctie.
+Dit wijst er op dat de SURE schatter minder gevoel is dan de SNR schatter voor de optimale waarde.
+De getallen op de $ y$-as hebben kunnen niet onderling worden vergeleken met elkaar omdat er telkens een andere schaling wordt gebruikt.
 
+Het is wel mogelijk om voor beide optima de SNR te bepalen.
+In ons voorbeeld hebben we gewerkt met de daubechie 6 wavelet tot niveau 5 met de gladde threshold functie.
+De optimale SNR die werd bekomen voor het SURE criteria was 22.51 dB.
+Wanneer de SNR zelf werd geoptimaliseerd werd er een SNR van 25.02 dB gevonden.
+Beide gefilterde afbeeldingen zijn weergegeven in Figuur \ref{fig:sure_snr}.
+
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_cost_snr}
+        \caption{SNR kostfunctie}
+        \label{fig:roster_denoising}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_cost}
+        \caption{SURE kost functie}
+        \label{fig:kost_crit_b}
+    \end{subfigure}
+    \caption{Vergelijking van twee kost criteria. In de linker figuur werd de benaderingsfout bepaald als de SNR ten opzichte van de originele afbeelding. In de rechter plot werd de kwaliteit van de benadering bepaald aan de hand van het SURE criteria. De SURE benadering geeft telkens kleiner waarden voor de optimale threshold parameter, bovendien is het minima veel vlakker. Dit wijst op de lage gevoeligheid voor het bepalen van de optimale parameter.}\label{fig:kost_crit}
+\end{figure}
+
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_SNR}
+        \caption{Optimale ruisreductie men SURE criteria, SNR=22.51 dB }
+        \label{fig:roster_denoising}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/sure/SURE_SURE}
+        \caption{Optimale ruisreductie men SNR criteria, SNR=25.02 dB}
+        \label{fig:roster_inpainting}
+    \end{subfigure}
+    \caption{Vergelijking van ruis reductie op basis van de twee verschillende kost criteria. Voor de wavelet transformatie is er gebruik gemaakt van de daubechie wavelet van orde 6 tot niveau 5. Het optimum is bepaald door middel van de optimalisatie routine fminunc.}\label{fig:sure_snr}
+\end{figure}
 
 \subsubsection{Beste strategie}
+
+Wanneer de keuze voorhanden is is het aangeraden om steeds de SNR kostfunctie te gebruiken voor een optimale threshold waarden te bepalen.
+Dit is echter niet altijd mogelijk. In dit geval is het SURE criteria een goed alternatief.
+
 
 
 
@@ -287,34 +348,53 @@ Dit resultaat is weergegeven in Figuur \ref{fig:redundant}
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/redundant/redundant_noise}
-        \caption{Beschadigde foto met SNR van 8.30 dB }
+        \caption{Beschadigde foto met SNR van 16.60 dB }
         \label{fig:redundant_noise}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{../src/denoising/redundant/redundant_fixed}
-        \caption{Reconstructie met SNR van 13.85 dB}
+        \caption{Reconstructie met SNR van 27.73 dB}
         \label{fig:redundant_fixed}
     \end{subfigure}
-    \caption{Resultaat voor reconstructie van ruizige foto aan de hand van  \textit{db6} wavelet met orde 5. Bij de reconstuctie werd er gebruik gemaakt van de redundante wavelet transformatie. Als threshold functie werd de zachte functie gebruikt. De threshold parameter werd optimaal gekozen aan de hand van een optimalisatie routine. }\label{fig:redundant}
+    \caption{Resultaat voor reconstructie van ruizige foto aan de hand van  \textit{db6} wavelet met orde 5. Bij de reconstuctie werd er gebruik gemaakt van de redundante wavelet transformatie. Als threshold functie werd de gladde functie gebruikt. De threshold parameter werd optimaal gekozen. Dit is het beste resultaat dat bekomen werd. }\label{fig:redundant}
 \end{figure}
-
-
-
-
-
-
-
-
 
 
 \subsubsection{Rooster ruis}
 
 
+Als afsluiter van het deel over ruisreductie nemen stappen we af van de gaussische ruis en voegen we een gestructureerde ruis toe aan de afbeelding.
+Deze gestructureerde ruis is in de vorm van een rooster dat over de afbeelding wordt geplaatste en bevat dus veel structuur.
+Voor de eenvoudige implementatie van het ruisreductie algoritme is het herkennen van deze rooster structuur als overbodig niet mogelijk.
+De gebruiker moet meer informatie meegeven over dit soort van ruis.
+De resultaten van een poging voor de het rooster te verwijderen zijn gegeven in Figuur \ref{fig:rooster}.
+In de linker figuur is het klassieke ruisreductie algoritme gebruikt, in de rechter figuur is een inpainting gebruikt (volgend hoofdstuk).
+Het verschil tussen beiden resultaten is groot.
+Dit is hoofdzakelijk het gevolg van de beschikbare informatie.
+Voor de ruisreductie werd er geen extra informatie over de beschadiging gebruikt.
+Bij het inpainting algoritme werd er specifiek meegegeven welke pixels beschadigd zijn.
 
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/grid/lena_grid_denoise}
+        \caption{Verwijderen van rooster met ruisreductie, SNR=-4.12 dB }
+        \label{fig:roster_denoising}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../src/denoising/grid/lena_fixed}
+        \caption{Verwijderen van rooster met ruisreductie, SNR=26.60 dB}
+        \label{fig:roster_inpainting}
+    \end{subfigure}
+    \caption{Resultaat voor reconstructie van foto die beschadigd werd met een rooster. In de linker afbeelding werd er gebruik gemaakt van het klassieke  ruisreductie algoritme. In de rechter afbeelding werd gebruik gemaakt van het inpainting algoritme. Voor beide resultaten werd de \textit{bd6} wavelet gebruikt en de zachte treshold functie. Voor de linker afbeelding werd de threshold waarden optimaal gekozen. In de rechter afbeelding was deze 10.}\label{fig:rooster}
+\end{figure}
 
 
 

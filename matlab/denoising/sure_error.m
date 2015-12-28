@@ -76,7 +76,8 @@ for i = 1:length(wname) % iterate over all kinds of wavelets
             % relative error between denoised and original signal
             N  = numel(A(:));
             N1 = sum(abs(C_thres)>delta);
-            rel_err(k,j,i) = 1/N*(norm(A(:)-A_noise(:))^2)+200*sigma*N1/N-sigma;
+            %rel_err(k,j,i) = 1/N*(norm(A(:)-A_noise(:))^2)/norm(A(:))^2+sigma^2*N1/N-sigma^2;
+            rel_err(k,j,i) = 1/N*(norm(A(:)-A_noise(:))^2)+sigma*N1/N-sigma;
         end
     end
 end

@@ -27,6 +27,6 @@ snr_image   = @(An) -20*log10( norm(A - An,'fro') / norm(A));
 
 SmootThresh = @(x,T) -x.*exp(-(x/T).^4)+x;
 % Cost function for threshold parameter
-costFun = @(T) -snr_image(den_image(A_n,Nb_levels,wname,@(x) SmootThresh(x,T),0));
+costFun = @(T) -snr_image(den_image(A_n,Nb_levels,wname,@(x) SmootThresh(x,T),w_mode,0));
 [a,b] =fminunc(costFun,0.2);
 

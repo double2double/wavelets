@@ -2,6 +2,7 @@
 
 clear 
 close all
+addpath('../src/')
 % Image names : 
 %       ./src/lena.gif
 %       ./src/baboon.gif
@@ -50,63 +51,83 @@ A_var = var(A(:));
 A = (A./sqrt(A_var));
 
 % Noise settings:
-    sigma = 0.2;
-    A_noise = A + sigma.*randn(size(A)); % Adding the noise
-    
+sigma = 0.2;
+%A_noise = A + sigma.*randn(size(A)); % Adding the noise
+A_noise = A+randn(size(A))*0.2;
+
+
+
 A_origineel = A; % normalised picture as original picture
 
-wname = {'bior6.8'}; % 'db4', 'haar'
+wname = {'db6'}; % 'db4', 'haar'
 Nb_levels = 5;
 mode = 'per';
 thres = {'smooth'}; % 'soft', 'hard' or 'smooth'
 
 costFun = @(delta) -err_plot_denoising(mode, thres, delta, wname, Nb_levels, A_origineel, A_noise,0);
-
+costFun_sure = @(delta) 100*(sure_error(mode, thres, delta, wname, Nb_levels, sigma, A_noise,0));
 [a,b] = fminunc(costFun,1);
+[a_sure,b_sure] = fminunc(costFun_sure,0.5);
 
-plot_denoise(mode, thres, a, wname, Nb_levels, A_mean,A_var, A_noise,cmap)
-
-%% Vraag 1.6 Optimalisatie(zonder vals spelen) SURE
+b_snr_sure =costFun(a_sure);
 
 
-[A_orig,cmap] = imread('../src/lena.gif');
-A = double(A_orig);
+%plot_denoise(mode, thres, a, wname, Nb_levels, A_mean,A_var, A_noise,cmap)
 
-% Normilize signal:
-A_mean = mean(A(:));
-A = A-A_mean;
-A_var = var(A(:));
-A = (A./sqrt(A_var));
+% Vraag 1.6 Optimalisatie(zonder vals spelen) SURE
+close all
+thres = {'soft','hard','smooth'}; % 'soft', 'hard' or 'smooth'
+costFun = @(delta) -err_plot_denoising(mode, thres, delta, wname, Nb_levels, A_origineel, A_noise,0);
+costFun_sure = @(delta) 100*(sure_error(mode, thres, delta, wname, Nb_levels, sigma, A_noise,0));
 
-% Noise settings:
-    sigma = 0.2;
-    A_noise = A + sigma.*randn(size(A)); % Adding the noise
-    
-A_origineel = A; % normalised picture as original picture
-
-wname = {'bior6.8'}; % 'db4', 'haar'
-Nb_levels = 5;
-mode = 'per';
-thres = {'smooth'}; % 'soft', 'hard' or 'smooth'
-
-costFun = @(delta) sure_error(mode, thres, delta, wname, Nb_levels, sigma, A_noise,0);
-
-%%
 aoeu=200;
 T=linspace(0,2,aoeu);
-cstT = 0.*T;
+cstT_snr = zeros(aoeu,numel(thres));
+cstT_sure = zeros(aoeu,numel(thres));
 for i=1:aoeu
-    cstT(i) =costFun(i);
+    disp(i)
+    cstT_sure(i,:) =costFun_sure(T(i));
+    cstT_snr(i,:)  = costFun(T(i));
 end
-plot(T,cstT);
 %%
 
+close
+fig1 = figure('position',[1000 1000 300 200]);
+plot(T,cstT_sure);
+xlabel('Coefficient','interpreter','Latex');
+ylabel('Amplitude','interpreter','Latex');
+title(['Waarde voor SURE cost functie, \textit{',wname,'} wavelet'],'interpreter','Latex');
+legend('soft','hard','smooth')
+exportfig(fig1,'plot/SURE_cost.eps',... 
+    'FontSize',1.2,...
+    'Bounds','loose',...
+    'color','rgb');
+fig2 = figure('position',[1000 1000 300 200]);
+plot(T,cstT_snr);
+xlabel('Coefficient','interpreter','Latex');
+ylabel('Amplitude','interpreter','Latex');
+title(['Waarde voor SNR cost functie, \textit{',wname,'} wavelet'],'interpreter','Latex');
+legend('soft','hard','smooth')
+exportfig(fig2,'plot/SURE_cost_snr.eps',... 
+    'FontSize',1.2,...
+    'Bounds','loose',...
+    'color','rgb');
 
-defaultopt = optimset('MaxFunEvals',1000);
-[a,b] = fminunc(costFun,1,defaultopt);
 
+
+%%
+close
+fig3= figure('position',[1000 1000 300 200]);
 plot_denoise(mode, thres, a, wname, Nb_levels, A_mean,A_var, A_noise,cmap)
+title(['SNR=',num2str(b)])
+%%
+fig4 = figure('position',[1320 1000 300 200]);
+plot_denoise(mode, thres, a_sure, wname, Nb_levels, A_mean,A_var, A_noise,cmap)
+title(['SNR=',num2str(b_snr_sure)])
+%[a,b] = fminunc(costFun,1);
+%[a_sure,b_sure] = fminunc(costFun_sure,0.5);
 
+%b_snr_sure =costFun(a_sure);
 
 
 

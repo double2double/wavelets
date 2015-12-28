@@ -15,7 +15,7 @@ colormap(cmap)
 image(A_orig);
 
 %% Create some distorsion.
-distorsion='random';
+distorsion='grid';
 mask = zeros(size(A));
 switch distorsion
     case 'random'
@@ -60,7 +60,7 @@ imwrite(uint8(A_dist),'plot/dist.png');
 %% Settings for the  wavelets.
 
 dwtmode('per');     % Boundary conditions: sym,per
-wname = 'db2';      % Type of wavelet: bior4.4,haar,db1,db2
+wname = 'db6';      % Type of wavelet: bior4.4,haar,db1,db2
 Nb_levels = 10;     % Nb of resolution levels.
 
 % Creating different treshold functions
@@ -103,7 +103,7 @@ cost = @(A_n) snr_image(A,A_n);
 
 % Outputting the results
 imwrite(uint8(A_dist),cmap,'plot/lena_broke.png')
-imwrite(uint8(B_np1),cmap,'plot/lena_fixed.png')
+imwrite(uint8(result),cmap,'plot/lena_fixed.png')
 
 
 

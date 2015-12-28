@@ -80,6 +80,7 @@ for i = 1:length(wname) % iterate over all kinds of wavelets
             % relative error between denoised and original signal
             colormap(cmap)
             image(A*sqrt(A_var)+A_mean)
+            imwrite(uint8(A*sqrt(A_var)+A_mean),'out.png')
         end
     end
 end
